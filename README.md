@@ -7,6 +7,7 @@ Part of [The AI Commit](https://theaicommit.com). Built for engineers and techni
 ## MVP
 
 - Vertical swipe cards (Inshorts-style)
+- Full-bleed hero images from article OG tags; **generated category art** if missing/fails
 - ~60-word summaries + “why it matters”
 - Categories: Models · Tools · Research · Platforms
 - Open source article in-browser

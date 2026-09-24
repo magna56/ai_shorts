@@ -6,10 +6,10 @@ import {
   Text,
   View,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import type { Story } from "../data/stories";
 import { colors, spacing } from "../theme";
+import { StoryHeroImage } from "./StoryHeroImage";
 
 type Props = {
   story: Story;
@@ -41,29 +41,29 @@ export function StoryCard({
 
   return (
     <View style={[styles.card, { height: cardHeight }]}>
-      <LinearGradient
-        colors={[story.imageColor, "#0A1210"]}
-        start={{ x: 0.1, y: 0 }}
-        end={{ x: 0.9, y: 1 }}
+      <StoryHeroImage
+        story={story}
         style={[styles.hero, { paddingTop: insets.top + 118 }]}
       >
-        <View style={styles.heroMeta}>
-          <Text style={styles.category}>{story.category.toUpperCase()}</Text>
-          <Text style={styles.progress}>
-            {index + 1} / {total}
-          </Text>
+        <View style={styles.heroInner}>
+          <View style={styles.heroMeta}>
+            <Text style={styles.category}>{story.category.toUpperCase()}</Text>
+            <Text style={styles.progress}>
+              {index + 1} / {total}
+            </Text>
+          </View>
+          <Text style={styles.brandMark}>The AI Commit</Text>
+          <Text style={styles.headline}>{story.headline}</Text>
+          <View style={styles.progressTrack}>
+            <View
+              style={[
+                styles.progressFill,
+                { width: `${((index + 1) / Math.max(total, 1)) * 100}%` },
+              ]}
+            />
+          </View>
         </View>
-        <Text style={styles.brandMark}>The AI Commit</Text>
-        <Text style={styles.headline}>{story.headline}</Text>
-        <View style={styles.progressTrack}>
-          <View
-            style={[
-              styles.progressFill,
-              { width: `${((index + 1) / Math.max(total, 1)) * 100}%` },
-            ]}
-          />
-        </View>
-      </LinearGradient>
+      </StoryHeroImage>
 
       <View
         style={[
@@ -125,6 +125,9 @@ const styles = StyleSheet.create({
     flex: 1.05,
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.lg,
+  },
+  heroInner: {
+    flex: 1,
     justifyContent: "flex-end",
   },
   heroMeta: {
@@ -155,6 +158,9 @@ const styles = StyleSheet.create({
     lineHeight: 36,
     color: "#FFFFFF",
     maxWidth: 340,
+    textShadowColor: "rgba(0,0,0,0.45)",
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 8,
   },
   progressTrack: {
     marginTop: spacing.md,

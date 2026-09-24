@@ -9,6 +9,8 @@ export type Story = {
   sourceName: string;
   sourceUrl: string;
   deepLabUrl?: string;
+  /** Remote article/OG image. Local bundle or generated category art used if missing/fails. */
+  imageUrl?: string;
   imageColor: string;
   publishedLabel: string;
 };
