@@ -1,0 +1,66 @@
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import type { Category } from "../data/stories";
+import { colors, spacing } from "../theme";
+
+type Props = {
+  categories: Category[];
+  selected: Category;
+  onSelect: (category: Category) => void;
+};
+
+export function CategoryBar({ categories, selected, onSelect }: Props) {
+  return (
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={styles.row}
+    >
+      {categories.map((category) => {
+        const active = category === selected;
+        return (
+          <Pressable
+            key={category}
+            onPress={() => onSelect(category)}
+            style={[styles.chip, active && styles.chipActive]}
+            accessibilityRole="button"
+            accessibilityState={{ selected: active }}
+          >
+            <Text style={[styles.label, active && styles.labelActive]}>
+              {category}
+            </Text>
+          </Pressable>
+        );
+      })}
+      <View style={{ width: spacing.sm }} />
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  row: {
+    paddingHorizontal: spacing.md,
+    gap: spacing.sm,
+    alignItems: "center",
+  },
+  chip: {
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.28)",
+    backgroundColor: "rgba(14,26,23,0.35)",
+  },
+  chipActive: {
+    backgroundColor: "#FFFFFF",
+    borderColor: "#FFFFFF",
+  },
+  label: {
+    fontFamily: "DMSans_500Medium",
+    fontSize: 13,
+    color: "rgba(255,255,255,0.88)",
+    letterSpacing: 0.2,
+  },
+  labelActive: {
+    color: colors.ink,
+  },
+});
