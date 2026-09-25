@@ -11,8 +11,14 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { useEffect, type ReactNode } from "react";
+import {
+  ActivityIndicator,
+  Platform,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { colors } from "../theme";
@@ -45,16 +51,43 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={styles.root}>
-      <SafeAreaProvider>
-        <StatusBar style="light" />
-        <Stack screenOptions={{ headerShown: false, animation: "fade" }} />
-      </SafeAreaProvider>
+      <PhoneStage>
+        <SafeAreaProvider>
+          <StatusBar style="light" />
+          <Stack screenOptions={{ headerShown: false, animation: "fade" }} />
+        </SafeAreaProvider>
+      </PhoneStage>
     </GestureHandlerRootView>
   );
 }
 
+const PHONE_WIDTH = 440;
+
+/** Desktop browsers only. A real phone, including iPhone 17 Pro Max, uses the full screen. */
+function PhoneStage({ children }: { children: ReactNode }) {
+  const { width } = useWindowDimensions();
+  if (Platform.OS !== "web" || width < 768) {
+    return <>{children}</>;
+  }
+  return (
+    <View style={styles.stage}>
+      <View style={styles.phone}>{children}</View>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
-  root: { flex: 1 },
+  root: { flex: 1, backgroundColor: colors.ink },
+  stage: {
+    flex: 1,
+    alignItems: "center",
+    backgroundColor: colors.ink,
+  },
+  phone: {
+    width: PHONE_WIDTH,
+    flex: 1,
+    backgroundColor: colors.paper,
+  },
   boot: {
     flex: 1,
     alignItems: "center",

@@ -35,6 +35,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web --port 3847",
+    "draft": "node scripts/draft-card.mjs",
+    "generate": "node scripts/generate-feed.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "expo lint"
   },

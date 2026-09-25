@@ -28,7 +28,7 @@ export function StoryHeroImage({ story, style, children }: Props) {
       <Image
         source={source}
         style={StyleSheet.absoluteFill}
-        contentFit="cover"
+        contentFit="contain"
         transition={200}
         onError={() => setFailed(true)}
         accessibilityIgnoresInvertColors

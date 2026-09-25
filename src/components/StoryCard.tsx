@@ -3,6 +3,7 @@ import {
   Alert,
   Dimensions,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -20,6 +21,7 @@ type Props = {
   onToggleSave: () => void;
   cardHeight: number;
   chromeHeight: number;
+  quizFollows: boolean;
 };
 
 export function StoryCard({
@@ -30,6 +32,7 @@ export function StoryCard({
   onToggleSave,
   cardHeight,
   chromeHeight,
+  quizFollows,
 }: Props) {
   const insets = useSafeAreaInsets();
 
@@ -49,7 +52,9 @@ export function StoryCard({
         story={story}
         style={[
           styles.hero,
-          { paddingTop: Math.max(chromeHeight, insets.top + 118) + spacing.sm },
+          {
+            paddingTop: Math.max(chromeHeight, insets.top + 118) + spacing.sm,
+          },
         ]}
       >
         <View style={styles.heroInner}>
@@ -59,7 +64,6 @@ export function StoryCard({
               {index + 1} / {total}
             </Text>
           </View>
-          <Text style={styles.brandMark}>The AI Commit</Text>
           <Text style={styles.headline}>{story.headline}</Text>
           <View style={styles.progressTrack}>
             <View
@@ -72,55 +76,64 @@ export function StoryCard({
         </View>
       </StoryHeroImage>
 
-      <View
-        style={[
+      <ScrollView
+        style={styles.bodyScroll}
+        contentContainerStyle={[
           styles.body,
           { paddingBottom: Math.max(insets.bottom, spacing.md) + spacing.sm },
         ]}
+        showsVerticalScrollIndicator={false}
+        nestedScrollEnabled
       >
         <Text style={styles.summary}>{story.summary}</Text>
-        <Text style={styles.whyLabel}>Why it matters</Text>
-        <Text style={styles.why}>{story.whyItMatters}</Text>
+            <View style={styles.whyBlock}>
+              <Text style={styles.whyLabel}>Why it matters</Text>
+              <Text style={styles.why}>{story.whyItMatters}</Text>
+            </View>
 
-        <View style={styles.metaRow}>
-          <Text style={styles.source}>
-            {story.sourceName} · {story.publishedLabel}
-          </Text>
-          <Pressable
-            onPress={onToggleSave}
-            hitSlop={12}
-            accessibilityRole="button"
-            accessibilityLabel={saved ? "Remove saved story" : "Save story"}
-          >
-            <Text style={[styles.save, saved && styles.saveActive]}>
-              {saved ? "Saved" : "Save"}
-            </Text>
-          </Pressable>
-        </View>
+            <View style={styles.metaRow}>
+              <Text style={styles.source}>
+                {story.sourceName} · {story.publishedLabel}
+              </Text>
+              <Pressable
+                onPress={onToggleSave}
+                hitSlop={12}
+                accessibilityRole="button"
+                accessibilityLabel={saved ? "Remove saved story" : "Save story"}
+              >
+                <Text style={[styles.save, saved && styles.saveActive]}>
+                  {saved ? "Saved" : "Save"}
+                </Text>
+              </Pressable>
+            </View>
 
-        <View style={styles.actions}>
-          <Pressable
-            style={styles.primaryBtn}
-            onPress={() => openLink(story.sourceUrl)}
-            accessibilityRole="button"
-          >
-            <Text style={styles.primaryBtnText}>Read source</Text>
-          </Pressable>
-          {story.deepLabUrl ? (
-            <Pressable
-              style={styles.secondaryBtn}
-              onPress={() => story.deepLabUrl && openLink(story.deepLabUrl)}
-              accessibilityRole="button"
-            >
-              <Text style={styles.secondaryBtnText}>Deep lab</Text>
-            </Pressable>
-          ) : null}
-        </View>
+            <View style={styles.actions}>
+              <Pressable
+                style={styles.primaryBtn}
+                onPress={() => openLink(story.sourceUrl)}
+                accessibilityRole="button"
+              >
+                <Text style={styles.primaryBtnText}>Read source</Text>
+              </Pressable>
+              {story.deepLabUrl ? (
+                <Pressable
+                  style={styles.secondaryBtn}
+                  onPress={() => story.deepLabUrl && openLink(story.deepLabUrl)}
+                  accessibilityRole="button"
+                >
+                  <Text style={styles.secondaryBtnText}>Deep lab</Text>
+                </Pressable>
+              ) : null}
+            </View>
 
         <Text style={styles.hint}>
-          {isLast ? "You’re caught up" : "Swipe up for next"}
+          {isLast && quizFollows
+            ? "Swipe up for five questions"
+            : isLast
+              ? "That’s today’s radar. Come back when the next one ships."
+              : "Swipe up for the next"}
         </Text>
-      </View>
+      </ScrollView>
     </View>
   );
 }
@@ -139,6 +152,9 @@ const styles = StyleSheet.create({
     flex: 1.05,
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.lg,
+  },
+  bodyScroll: {
+    flex: 1,
   },
   heroInner: {
     flex: 1,
@@ -160,18 +176,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "rgba(255,255,255,0.72)",
   },
-  brandMark: {
-    fontFamily: "SourceSerif4_600SemiBold",
-    fontSize: 18,
-    color: "rgba(255,255,255,0.92)",
-    marginBottom: spacing.sm,
-  },
   headline: {
     fontFamily: "SourceSerif4_700Bold",
     fontSize: 30,
     lineHeight: 36,
     color: "#FFFFFF",
-    maxWidth: 340,
     textShadowColor: "rgba(0,0,0,0.45)",
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 8,
@@ -202,8 +211,13 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: colors.ink,
   },
-  whyLabel: {
+  whyBlock: {
     marginTop: spacing.md,
+    paddingLeft: spacing.sm,
+    borderLeftWidth: 3,
+    borderLeftColor: colors.signal,
+  },
+  whyLabel: {
     fontFamily: "DMSans_600SemiBold",
     fontSize: 12,
     letterSpacing: 0.8,

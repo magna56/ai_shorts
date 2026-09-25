@@ -55,6 +55,10 @@ The AI Commit only publishes **one deep lab/day**. Shorts are the **radar** for 
 
 **Positioning line:** “TLDR for your pocket.”
 
+**Where effort goes:** Content is the moat — real pieces, ~60 words, a sharp “why it matters,” and a link to the article. UI exists to make that scan fast. Do not spend the next sessions on feed infrastructure, accounts, or scraping. A card that is vague, unsourced, or linked to a homepage is a failed card.
+
+**Sources:** see [SOURCES.md](./SOURCES.md).
+
 ---
 
 ## 3. Market research (condensed)

@@ -5,8 +5,6 @@ import {
   StyleSheet,
   Text,
   View,
-  type NativeScrollEvent,
-  type NativeSyntheticEvent,
   type ViewToken,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -16,20 +14,28 @@ import {
   type Category,
   type Story,
 } from "../data/stories";
+import { useReadingRitual } from "../hooks/useReadingRitual";
 import { useSavedStories } from "../hooks/useSavedStories";
 import { colors, spacing } from "../theme";
 import { CategoryBar } from "./CategoryBar";
+import { RadarQuiz } from "./RadarQuiz";
 import { StoryCard, useCardHeight } from "./StoryCard";
+
+type FeedItem =
+  | { kind: "story"; story: Story }
+  | { kind: "quiz" };
 
 export function Feed() {
   const insets = useSafeAreaInsets();
   const cardHeight = useCardHeight();
-  const listRef = useRef<FlatList<Story>>(null);
+  const listRef = useRef<FlatList<FeedItem>>(null);
   const [category, setCategory] = useState<Category>("All");
   const [showSaved, setShowSaved] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
   const [chromeHeight, setChromeHeight] = useState(0);
+  const [onQuiz, setOnQuiz] = useState(false);
   const { savedIds, toggle, ready } = useSavedStories();
+  const ritual = useReadingRitual(STORIES.map((story) => story.id));
+  const resumed = useRef(false);
 
   const stories = useMemo(() => {
     const byCategory =
@@ -40,26 +46,57 @@ export function Feed() {
     return byCategory.filter((s) => savedIds.has(s.id));
   }, [category, showSaved, savedIds]);
 
+  const quizFollows = category === "All" && !showSaved && stories.length > 0;
+  const items = useMemo<FeedItem[]>(() => {
+    const rows: FeedItem[] = stories.map((story) => ({ kind: "story", story }));
+    if (quizFollows) rows.push({ kind: "quiz" });
+    return rows;
+  }, [stories, quizFollows]);
+
   useEffect(() => {
-    setActiveIndex(0);
+    setOnQuiz(false);
     listRef.current?.scrollToOffset({ offset: 0, animated: false });
   }, [category, showSaved]);
 
+  useEffect(() => {
+    if (!ritual.ready || resumed.current || category !== "All" || showSaved) return;
+    if (ritual.startIndex <= 0) return;
+    resumed.current = true;
+    requestAnimationFrame(() => {
+      listRef.current?.scrollToIndex({
+        index: ritual.startIndex,
+        animated: false,
+      });
+    });
+  }, [ritual.ready, ritual.startIndex, category, showSaved]);
+
   const onViewableItemsChanged = useRef(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
-      if (viewableItems[0]?.index != null) {
-        setActiveIndex(viewableItems[0].index);
+      const item = viewableItems[0]?.item as FeedItem | undefined;
+      if (!item) return;
+      if (item.kind === "story") {
+        ritual.markSeen(item.story.id);
+        setOnQuiz(false);
+      } else {
+        setOnQuiz(true);
       }
     },
   ).current;
 
-  const viewabilityConfig = useRef({
-    itemVisiblePercentThreshold: 80,
-  }).current;
+  const viewabilityConfig = useRef({ itemVisiblePercentThreshold: 60 }).current;
 
-  if (!ready) {
+  if (!ready || !ritual.ready) {
     return <View style={styles.centered} />;
   }
+
+  const minutes = Math.max(1, Math.round(stories.length / 3));
+  const caughtUp = category === "All" && !showSaved && ritual.caughtUp;
+  const sessionLine = onQuiz
+    ? "Five questions"
+    : caughtUp
+      ? "Caught up · next one lands through the day"
+      : `${stories.length} ${stories.length === 1 ? "story" : "stories"} · about ${minutes} min`;
+  const headerOnPaper = stories.length === 0 || onQuiz;
 
   const emptyTitle = showSaved
     ? "Nothing saved yet"
@@ -76,11 +113,14 @@ export function Feed() {
       >
         <View style={styles.topBar}>
           <View>
-            <Text style={[styles.kicker, stories.length === 0 && styles.kickerOnPaper]}>
+            <Text style={[styles.kicker, headerOnPaper && styles.kickerOnPaper]}>
               Shorts
             </Text>
-            <Text style={[styles.title, stories.length === 0 && styles.titleOnPaper]}>
+            <Text style={[styles.title, headerOnPaper && styles.titleOnPaper]}>
               The AI Commit
+            </Text>
+            <Text style={[styles.subtitle, headerOnPaper && styles.subtitleOnPaper]}>
+              {stories.length === 0 ? "TLDR for your pocket" : sessionLine}
             </Text>
           </View>
           <Pressable
@@ -91,14 +131,14 @@ export function Feed() {
             accessibilityLabel={showSaved ? "Show all stories" : "Show saved stories"}
             style={[
               styles.savedChip,
-              stories.length === 0 && styles.savedChipOnPaper,
+              headerOnPaper && styles.savedChipOnPaper,
               showSaved && styles.savedChipActive,
             ]}
           >
             <Text
               style={[
                 styles.savedLabel,
-                stories.length === 0 && !showSaved && styles.savedLabelOnPaper,
+                headerOnPaper && !showSaved && styles.savedLabelOnPaper,
                 showSaved && styles.savedLabelActive,
               ]}
             >
@@ -111,7 +151,7 @@ export function Feed() {
           categories={CATEGORIES}
           selected={category}
           onSelect={setCategory}
-          onPaper={stories.length === 0}
+          onPaper={headerOnPaper}
         />
       </View>
 
@@ -123,8 +163,8 @@ export function Feed() {
       ) : (
         <FlatList
           ref={listRef}
-          data={stories}
-          keyExtractor={(item) => item.id}
+          data={items}
+          keyExtractor={(item) => (item.kind === "quiz" ? "quiz" : item.story.id)}
           pagingEnabled
           decelerationRate="fast"
           showsVerticalScrollIndicator={false}
@@ -136,37 +176,39 @@ export function Feed() {
             offset: cardHeight * index,
             index,
           })}
-          onMomentumScrollEnd={(
-            e: NativeSyntheticEvent<NativeScrollEvent>,
-          ) => {
-            const next = Math.round(
-              e.nativeEvent.contentOffset.y / cardHeight,
-            );
-            setActiveIndex(next);
-          }}
           onViewableItemsChanged={onViewableItemsChanged}
           viewabilityConfig={viewabilityConfig}
-          renderItem={({ item, index }) => (
-            <StoryCard
-              story={item}
-              index={index}
-              total={stories.length}
-              saved={savedIds.has(item.id)}
-              onToggleSave={() => toggle(item.id)}
-              cardHeight={cardHeight}
-              chromeHeight={chromeHeight}
-            />
-          )}
+          onScrollToIndexFailed={(info) => {
+            listRef.current?.scrollToOffset({
+              offset: info.index * cardHeight,
+              animated: false,
+            });
+          }}
+          renderItem={({ item, index }) =>
+            item.kind === "quiz" ? (
+              <RadarQuiz
+                cardHeight={cardHeight}
+                chromeHeight={chromeHeight}
+                onDone={() =>
+                  listRef.current?.scrollToOffset({ offset: 0, animated: true })
+                }
+              />
+            ) : (
+              <StoryCard
+                story={item.story}
+                index={index}
+                total={stories.length}
+                saved={savedIds.has(item.story.id)}
+                onToggleSave={() => toggle(item.story.id)}
+                cardHeight={cardHeight}
+                chromeHeight={chromeHeight}
+                quizFollows={quizFollows && index === stories.length - 1}
+              />
+            )
+          }
         />
       )}
 
-      {stories.length > 0 ? (
-        <View style={styles.floatingBadge} pointerEvents="none">
-          <Text style={styles.floatingText}>
-            {activeIndex + 1}/{stories.length}
-          </Text>
-        </View>
-      ) : null}
     </View>
   );
 }
@@ -236,6 +278,15 @@ const styles = StyleSheet.create({
   titleOnPaper: {
     color: colors.ink,
   },
+  subtitle: {
+    fontFamily: "DMSans_500Medium",
+    fontSize: 12,
+    color: "rgba(255,255,255,0.72)",
+    marginTop: 2,
+  },
+  subtitleOnPaper: {
+    color: colors.inkMuted,
+  },
   centered: {
     flex: 1,
     alignItems: "center",
@@ -256,19 +307,5 @@ const styles = StyleSheet.create({
     color: colors.inkMuted,
     textAlign: "center",
     lineHeight: 22,
-  },
-  floatingBadge: {
-    position: "absolute",
-    right: spacing.md,
-    bottom: spacing.xl,
-    backgroundColor: "rgba(14,26,23,0.75)",
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 999,
-  },
-  floatingText: {
-    fontFamily: "DMSans_500Medium",
-    fontSize: 12,
-    color: "#fff",
   },
 });

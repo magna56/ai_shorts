@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "AI Commit Shorts",
-    "slug": "ai-commit-shorts",
+    "slug": "shortsai",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -42,6 +42,13 @@
         }
       ],
       "expo-image"
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "8c06273a-11e4-4a51-8822-618d21c71b50"
+      }
+    },
+    "owner": "shortsai"
   }
 }
