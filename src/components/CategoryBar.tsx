@@ -6,9 +6,10 @@ type Props = {
   categories: Category[];
   selected: Category;
   onSelect: (category: Category) => void;
+  onPaper?: boolean;
 };
 
-export function CategoryBar({ categories, selected, onSelect }: Props) {
+export function CategoryBar({ categories, selected, onSelect, onPaper }: Props) {
   return (
     <ScrollView
       horizontal
@@ -21,11 +22,21 @@ export function CategoryBar({ categories, selected, onSelect }: Props) {
           <Pressable
             key={category}
             onPress={() => onSelect(category)}
-            style={[styles.chip, active && styles.chipActive]}
+            style={[
+              styles.chip,
+              onPaper && styles.chipOnPaper,
+              active && styles.chipActive,
+            ]}
             accessibilityRole="button"
             accessibilityState={{ selected: active }}
           >
-            <Text style={[styles.label, active && styles.labelActive]}>
+            <Text
+              style={[
+                styles.label,
+                onPaper && styles.labelOnPaper,
+                active && styles.labelActive,
+              ]}
+            >
               {category}
             </Text>
           </Pressable>
@@ -50,6 +61,10 @@ const styles = StyleSheet.create({
     borderColor: "rgba(255,255,255,0.28)",
     backgroundColor: "rgba(14,26,23,0.35)",
   },
+  chipOnPaper: {
+    backgroundColor: colors.paperElevated,
+    borderColor: colors.line,
+  },
   chipActive: {
     backgroundColor: "#FFFFFF",
     borderColor: "#FFFFFF",
@@ -59,6 +74,9 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: "rgba(255,255,255,0.88)",
     letterSpacing: 0.2,
+  },
+  labelOnPaper: {
+    color: colors.inkMuted,
   },
   labelActive: {
     color: colors.ink,

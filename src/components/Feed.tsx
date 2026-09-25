@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  ActivityIndicator,
   FlatList,
+  Pressable,
   StyleSheet,
   Text,
   View,
@@ -26,24 +26,24 @@ export function Feed() {
   const cardHeight = useCardHeight();
   const listRef = useRef<FlatList<Story>>(null);
   const [category, setCategory] = useState<Category>("All");
-  const [loading, setLoading] = useState(true);
+  const [showSaved, setShowSaved] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [chromeHeight, setChromeHeight] = useState(0);
   const { savedIds, toggle, ready } = useSavedStories();
 
-  useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 450);
-    return () => clearTimeout(t);
-  }, []);
-
   const stories = useMemo(() => {
-    if (category === "All") return STORIES;
-    return STORIES.filter((s) => s.category === category);
-  }, [category]);
+    const byCategory =
+      category === "All"
+        ? STORIES
+        : STORIES.filter((s) => s.category === category);
+    if (!showSaved) return byCategory;
+    return byCategory.filter((s) => savedIds.has(s.id));
+  }, [category, showSaved, savedIds]);
 
   useEffect(() => {
     setActiveIndex(0);
     listRef.current?.scrollToOffset({ offset: 0, animated: false });
-  }, [category]);
+  }, [category, showSaved]);
 
   const onViewableItemsChanged = useRef(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
@@ -57,39 +57,68 @@ export function Feed() {
     itemVisiblePercentThreshold: 80,
   }).current;
 
-  if (loading || !ready) {
-    return (
-      <View style={styles.centered}>
-        <ActivityIndicator color={colors.signal} size="large" />
-        <Text style={styles.loadingText}>Loading today’s AI radar…</Text>
-      </View>
-    );
+  if (!ready) {
+    return <View style={styles.centered} />;
   }
+
+  const emptyTitle = showSaved
+    ? "Nothing saved yet"
+    : `No stories in ${category}`;
+  const emptyBody = showSaved
+    ? "Tap Save on a card and it will show up here."
+    : "Try another category — today’s radar is thin here.";
 
   return (
     <View style={styles.root}>
-      <View style={[styles.topBar, { paddingTop: insets.top + spacing.sm }]}>
-        <View>
-          <Text style={styles.kicker}>Shorts</Text>
-          <Text style={styles.title}>The AI Commit</Text>
+      <View
+        style={[styles.chrome, { paddingTop: insets.top + spacing.sm }]}
+        onLayout={(e) => setChromeHeight(e.nativeEvent.layout.height)}
+      >
+        <View style={styles.topBar}>
+          <View>
+            <Text style={[styles.kicker, stories.length === 0 && styles.kickerOnPaper]}>
+              Shorts
+            </Text>
+            <Text style={[styles.title, stories.length === 0 && styles.titleOnPaper]}>
+              The AI Commit
+            </Text>
+          </View>
+          <Pressable
+            onPress={() => setShowSaved((on) => !on)}
+            hitSlop={12}
+            accessibilityRole="button"
+            accessibilityState={{ selected: showSaved }}
+            accessibilityLabel={showSaved ? "Show all stories" : "Show saved stories"}
+            style={[
+              styles.savedChip,
+              stories.length === 0 && styles.savedChipOnPaper,
+              showSaved && styles.savedChipActive,
+            ]}
+          >
+            <Text
+              style={[
+                styles.savedLabel,
+                stories.length === 0 && !showSaved && styles.savedLabelOnPaper,
+                showSaved && styles.savedLabelActive,
+              ]}
+            >
+              {showSaved ? "Saved" : `Saved ${savedIds.size}`}
+            </Text>
+          </Pressable>
         </View>
-        <Text style={styles.subtitle}>TLDR for your pocket</Text>
-      </View>
 
-      <View style={styles.categoryWrap}>
         <CategoryBar
           categories={CATEGORIES}
           selected={category}
           onSelect={setCategory}
+          onPaper={stories.length === 0}
         />
       </View>
 
       {stories.length === 0 ? (
-        <View style={styles.centered}>
-          <Text style={styles.emptyTitle}>No stories in {category}</Text>
-          <Text style={styles.emptyBody}>
-            Try another category — today’s radar is thin here.
-          </Text>
+        <View style={[styles.centered, { paddingTop: chromeHeight }]}>
+          <Text style={styles.emptyTitle}>{emptyTitle}</Text>
+          <Text style={styles.emptyBody}>{emptyBody}</Text>
         </View>
       ) : (
         <FlatList
@@ -125,6 +154,7 @@ export function Feed() {
               saved={savedIds.has(item.id)}
               onToggleSave={() => toggle(item.id)}
               cardHeight={cardHeight}
+              chromeHeight={chromeHeight}
             />
           )}
         />
@@ -146,16 +176,47 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.paper,
   },
-  topBar: {
+  chrome: {
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     zIndex: 20,
+    gap: spacing.sm,
+  },
+  topBar: {
     paddingHorizontal: spacing.lg,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
+  },
+  savedChip: {
+    marginBottom: 2,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 999,
+    backgroundColor: "rgba(14,26,23,0.35)",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.28)",
+  },
+  savedChipOnPaper: {
+    backgroundColor: colors.paperElevated,
+    borderColor: colors.line,
+  },
+  savedChipActive: {
+    backgroundColor: "#FFFFFF",
+    borderColor: "#FFFFFF",
+  },
+  savedLabel: {
+    fontFamily: "DMSans_600SemiBold",
+    fontSize: 12,
+    color: "rgba(255,255,255,0.9)",
+  },
+  savedLabelOnPaper: {
+    color: colors.ink,
+  },
+  savedLabelActive: {
+    color: colors.ink,
   },
   kicker: {
     fontFamily: "DMSans_600SemiBold",
@@ -169,18 +230,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#FFFFFF",
   },
-  subtitle: {
-    fontFamily: "DMSans_500Medium",
-    fontSize: 12,
-    color: "rgba(255,255,255,0.72)",
-    marginBottom: 4,
+  kickerOnPaper: {
+    color: colors.inkMuted,
   },
-  categoryWrap: {
-    position: "absolute",
-    top: 102,
-    left: 0,
-    right: 0,
-    zIndex: 20,
+  titleOnPaper: {
+    color: colors.ink,
   },
   centered: {
     flex: 1,
@@ -189,11 +243,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
     backgroundColor: colors.paper,
     gap: spacing.sm,
-  },
-  loadingText: {
-    fontFamily: "DMSans_500Medium",
-    fontSize: 15,
-    color: colors.inkMuted,
   },
   emptyTitle: {
     fontFamily: "SourceSerif4_600SemiBold",

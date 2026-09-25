@@ -1,5 +1,6 @@
 import * as WebBrowser from "expo-web-browser";
 import {
+  Alert,
   Dimensions,
   Pressable,
   StyleSheet,
@@ -18,6 +19,7 @@ type Props = {
   saved: boolean;
   onToggleSave: () => void;
   cardHeight: number;
+  chromeHeight: number;
 };
 
 export function StoryCard({
@@ -27,23 +29,28 @@ export function StoryCard({
   saved,
   onToggleSave,
   cardHeight,
+  chromeHeight,
 }: Props) {
   const insets = useSafeAreaInsets();
 
-  const openSource = async () => {
-    await WebBrowser.openBrowserAsync(story.sourceUrl);
+  const openLink = async (url: string) => {
+    try {
+      await WebBrowser.openBrowserAsync(url);
+    } catch {
+      Alert.alert("Couldn’t open link", "Check your connection and try again.");
+    }
   };
 
-  const openDeepLab = async () => {
-    if (!story.deepLabUrl) return;
-    await WebBrowser.openBrowserAsync(story.deepLabUrl);
-  };
+  const isLast = index === total - 1;
 
   return (
     <View style={[styles.card, { height: cardHeight }]}>
       <StoryHeroImage
         story={story}
-        style={[styles.hero, { paddingTop: insets.top + 118 }]}
+        style={[
+          styles.hero,
+          { paddingTop: Math.max(chromeHeight, insets.top + 118) + spacing.sm },
+        ]}
       >
         <View style={styles.heroInner}>
           <View style={styles.heroMeta}>
@@ -79,7 +86,12 @@ export function StoryCard({
           <Text style={styles.source}>
             {story.sourceName} · {story.publishedLabel}
           </Text>
-          <Pressable onPress={onToggleSave} hitSlop={12}>
+          <Pressable
+            onPress={onToggleSave}
+            hitSlop={12}
+            accessibilityRole="button"
+            accessibilityLabel={saved ? "Remove saved story" : "Save story"}
+          >
             <Text style={[styles.save, saved && styles.saveActive]}>
               {saved ? "Saved" : "Save"}
             </Text>
@@ -89,7 +101,7 @@ export function StoryCard({
         <View style={styles.actions}>
           <Pressable
             style={styles.primaryBtn}
-            onPress={openSource}
+            onPress={() => openLink(story.sourceUrl)}
             accessibilityRole="button"
           >
             <Text style={styles.primaryBtnText}>Read source</Text>
@@ -97,7 +109,7 @@ export function StoryCard({
           {story.deepLabUrl ? (
             <Pressable
               style={styles.secondaryBtn}
-              onPress={openDeepLab}
+              onPress={() => story.deepLabUrl && openLink(story.deepLabUrl)}
               accessibilityRole="button"
             >
               <Text style={styles.secondaryBtnText}>Deep lab</Text>
@@ -105,7 +117,9 @@ export function StoryCard({
           ) : null}
         </View>
 
-        <Text style={styles.hint}>Swipe up for next</Text>
+        <Text style={styles.hint}>
+          {isLast ? "You’re caught up" : "Swipe up for next"}
+        </Text>
       </View>
     </View>
   );

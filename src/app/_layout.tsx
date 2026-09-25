@@ -18,6 +18,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { colors } from "../theme";
 
 SplashScreen.preventAutoHideAsync().catch(() => undefined);
+SplashScreen.setOptions({ duration: 400, fade: true });
 
 export default function RootLayout() {
   const [loaded] = useFonts({
