@@ -4,6 +4,8 @@ iOS-first Expo app: **TLDR for your pocket** — dense AI engineering news in sw
 
 Part of [The AI Commit](https://theaicommit.com). Built for engineers and technical pros who already live on digests like TLDR AI, for commute / between-meeting moments email doesn’t cover.
 
+**Full product + market context for the next Cursor session:** see [HANDOFF.md](./HANDOFF.md).
+
 ## MVP
 
 - Vertical swipe cards (Inshorts-style)
