@@ -19,6 +19,7 @@ import { useAccount } from "../hooks/useAccount";
 import { usePublishedFeed } from "../hooks/usePublishedFeed";
 import { useReadingRitual } from "../hooks/useReadingRitual";
 import { useSavedStories } from "../hooks/useSavedStories";
+import { formatFeedDate, previousFeedLabel } from "../lib/feedDays";
 import { colors, radius, spacing } from "../theme";
 import { CategoryBar } from "./CategoryBar";
 import { RadarQuiz } from "./RadarQuiz";
@@ -38,7 +39,8 @@ export function Feed() {
   const [onQuiz, setOnQuiz] = useState(false);
   const { savedIds, toggle, ready } = useSavedStories();
   const { account } = useAccount();
-  const published = usePublishedFeed(STORIES);
+  const feed = usePublishedFeed(STORIES);
+  const published = feed.stories;
   const ritual = useReadingRitual(published.map((story) => story.id));
   const resumed = useRef(false);
 
@@ -51,7 +53,8 @@ export function Feed() {
     return byCategory.filter((s) => savedIds.has(s.id));
   }, [category, showSaved, savedIds, published]);
 
-  const quizFollows = category === "All" && !showSaved && stories.length > 0;
+  const onLatest = feed.date === feed.latestDate;
+  const quizFollows = onLatest && category === "All" && !showSaved && stories.length > 0;
   const items = useMemo<FeedItem[]>(() => {
     const rows: FeedItem[] = stories.map((story) => ({ kind: "story", story }));
     if (quizFollows) rows.push({ kind: "quiz" });
@@ -60,8 +63,9 @@ export function Feed() {
 
   useEffect(() => {
     setOnQuiz(false);
+    resumed.current = false;
     listRef.current?.scrollToOffset({ offset: 0, animated: false });
-  }, [category, showSaved]);
+  }, [category, showSaved, feed.date]);
 
   useEffect(() => {
     if (!ritual.ready || resumed.current || category !== "All" || showSaved) return;
@@ -73,7 +77,7 @@ export function Feed() {
         animated: false,
       });
     });
-  }, [ritual.ready, ritual.startIndex, category, showSaved]);
+  }, [ritual.ready, ritual.startIndex, category, showSaved, feed.date]);
 
   const onViewableItemsChanged = useRef(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
@@ -90,25 +94,37 @@ export function Feed() {
 
   const viewabilityConfig = useRef({ itemVisiblePercentThreshold: 60 }).current;
 
-  if (!ready || !ritual.ready) {
+  if (!ready || !ritual.ready || (feed.loading && stories.length === 0)) {
     return <View style={styles.centered} />;
   }
 
   const minutes = Math.max(1, Math.round(stories.length / 3));
-  const caughtUp = category === "All" && !showSaved && ritual.caughtUp;
+  const caughtUp = onLatest && category === "All" && !showSaved && ritual.caughtUp;
+  const yesterdayLabel = feed.previousDate
+    ? previousFeedLabel(feed.date, feed.previousDate)
+    : "";
   const sessionLine = onQuiz
     ? "Five questions"
-    : caughtUp
-      ? "Caught up · next one lands through the day"
-      : `${stories.length} ${stories.length === 1 ? "story" : "stories"} · about ${minutes} min`;
+    : !onLatest
+      ? formatFeedDate(feed.date)
+      : caughtUp
+        ? feed.previousDate
+          ? `Caught up · ${yesterdayLabel}`
+          : "Caught up · next one lands through the day"
+        : feed.error
+          ? feed.error
+          : `${stories.length} ${stories.length === 1 ? "story" : "stories"} · about ${minutes} min`;
+  const openYesterday = caughtUp && feed.previousDate ? () => feed.selectDate(feed.previousDate!) : null;
   const headerOnPaper = true;
 
   const emptyTitle = showSaved
     ? "Nothing saved yet"
     : `No stories in ${category}`;
-  const emptyBody = showSaved
-    ? "Tap Save on a card and it will show up here."
-    : "Try another category — today’s radar is thin here.";
+  const emptyBody = feed.error
+    ? feed.error
+    : showSaved
+      ? "Tap Save on a card and it will show up here."
+      : "Try another category — today’s radar is thin here.";
 
   return (
     <View style={styles.root}>
@@ -125,9 +141,21 @@ export function Feed() {
               Eng AI
             </Text>
             <View style={styles.mastRule} />
-            <Text style={[styles.subtitle, headerOnPaper && styles.subtitleOnPaper]}>
-              {stories.length === 0 ? "For software engineers" : sessionLine}
-            </Text>
+            {openYesterday ? (
+              <Pressable
+                onPress={openYesterday}
+                accessibilityRole="button"
+                accessibilityLabel={`Check ${yesterdayLabel.toLowerCase()}'s feed`}
+              >
+                <Text style={[styles.subtitle, styles.yesterdayLink]}>
+                  {sessionLine}
+                </Text>
+              </Pressable>
+            ) : (
+              <Text style={[styles.subtitle, headerOnPaper && styles.subtitleOnPaper]}>
+                {stories.length === 0 ? "For software engineers" : sessionLine}
+              </Text>
+            )}
           </View>
           <View style={styles.chips}>
           <Pressable
@@ -149,6 +177,17 @@ export function Feed() {
               {account ? account.name?.split(" ")[0] || "Account" : "Sign in"}
             </Text>
           </Pressable>
+          {!onLatest ? (
+            <Pressable
+              onPress={() => feed.selectDate(feed.latestDate)}
+              hitSlop={12}
+              accessibilityRole="button"
+              accessibilityLabel="Back to today's feed"
+              style={[styles.savedChip, headerOnPaper && styles.savedChipOnPaper]}
+            >
+              <Text style={[styles.savedLabel, styles.savedLabelOnPaper]}>Today</Text>
+            </Pressable>
+          ) : null}
           <Pressable
             onPress={() => setShowSaved((on) => !on)}
             hitSlop={12}
@@ -324,6 +363,10 @@ const styles = StyleSheet.create({
   },
   subtitleOnPaper: {
     color: colors.inkMuted,
+  },
+  yesterdayLink: {
+    color: colors.accent,
+    fontFamily: "DMSans_600SemiBold",
   },
   centered: {
     flex: 1,

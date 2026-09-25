@@ -41,6 +41,7 @@
     "web": "expo start --web --port 3847",
     "draft": "node scripts/draft-card.mjs",
     "generate": "node scripts/generate-feed.mjs",
+    "check-feed": "node scripts/check-feed.mjs",
     "publish": "node scripts/publish-feed.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "expo lint"

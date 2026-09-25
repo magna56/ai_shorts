@@ -22,6 +22,8 @@ export type Story = {
   imageUrl?: string;
   imageColor: string;
   publishedLabel: string;
+  /** Editorial day this card belongs to, YYYY-MM-DD in America/New_York. */
+  feedDate?: string;
   /** The one longer paper, kernel, or benchmark in a pass. */
   longRead?: boolean;
 };

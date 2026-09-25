@@ -26,40 +26,71 @@ if (!token) {
   process.exit(1);
 }
 
-const body = readFileSync(join(root, "src/data/stories.json"));
+const stories = JSON.parse(readFileSync(join(root, "src/data/stories.json"), "utf8"));
 const auth = { Authorization: `Bearer ${token}` };
-
-const put = await fetch(
-  `https://api.cloudflare.com/client/v4/accounts/${account}/r2/buckets/${bucket}/objects/${key}`,
-  {
-    method: "PUT",
-    headers: {
-      ...auth,
-      "content-type": "application/json",
-      // JSON is not cached until a zone cache rule marks /feed.json eligible.
-      "cache-control": "public, max-age=300",
-    },
-    body,
-  },
-);
-const putJson = await put.json().catch(() => ({}));
-if (!put.ok || putJson.success === false) {
-  console.error("R2 upload failed.", put.status, JSON.stringify(putJson.errors ?? putJson));
-  process.exit(1);
+const byDate = new Map();
+for (const story of stories) {
+  const date = story.feedDate;
+  if (!date) continue;
+  const list = byDate.get(date) ?? [];
+  list.push(story);
+  byDate.set(date, list);
 }
-console.log(`Stored ${key} in ${bucket}`);
+const dates = [...byDate.keys()].sort((a, b) => b.localeCompare(a));
+const latest = dates[0];
+const origin = publicUrl.replace(/\/feed\.json$/, "");
+const index = {
+  days: dates.map((date) => ({
+    date,
+    count: byDate.get(date).length,
+  })),
+};
+const uploads = [
+  { key, body: JSON.stringify(byDate.get(latest) ?? []), url: publicUrl },
+  {
+    key: "feeds/index.json",
+    body: JSON.stringify(index),
+    url: `${origin}/feeds/index.json`,
+  },
+  ...dates.map((date) => ({
+    key: `feeds/${date}.json`,
+    body: JSON.stringify(byDate.get(date)),
+    url: `${origin}/feeds/${date}.json`,
+  })),
+];
+
+for (const file of uploads) {
+  const put = await fetch(
+    `https://api.cloudflare.com/client/v4/accounts/${account}/r2/buckets/${bucket}/objects/${file.key}`,
+    {
+      method: "PUT",
+      headers: {
+        ...auth,
+        "content-type": "application/json",
+        "cache-control": "public, max-age=300",
+      },
+      body: file.body,
+    },
+  );
+  const putJson = await put.json().catch(() => ({}));
+  if (!put.ok || putJson.success === false) {
+    console.error("R2 upload failed.", file.key, put.status, JSON.stringify(putJson.errors ?? putJson));
+    process.exit(1);
+  }
+  console.log(`Stored ${file.key}`);
+}
 
 const purge = await fetch(`https://api.cloudflare.com/client/v4/zones/${zone}/purge_cache`, {
   method: "POST",
   headers: { ...auth, "content-type": "application/json" },
-  body: JSON.stringify({ files: [publicUrl] }),
+  body: JSON.stringify({ files: uploads.map((file) => file.url) }),
 });
 const purgeJson = await purge.json().catch(() => ({}));
 if (!purge.ok || purgeJson.success === false) {
   console.error("CDN purge failed.", purge.status, JSON.stringify(purgeJson.errors ?? purgeJson));
   console.error("feed.json stays uncached until a cache rule marks it eligible.");
 } else {
-  console.log(`Purged ${publicUrl}`);
+  console.log(`Purged ${uploads.length} files`);
 }
 
 if (notifyUrl && publishSecret) {

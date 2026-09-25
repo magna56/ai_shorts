@@ -10,7 +10,8 @@
     "sourceUrl": "https://theaicommit.com/2026-09-25-how-to-watermark-a-models-output-without-changing-a-word/",
     "imageUrl": "https://theaicommit.com/og/2026-09-25.png",
     "imageColor": "#4A1942",
-    "publishedLabel": "Today"
+    "publishedLabel": "Today",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "clm-8b-system-one",
@@ -23,7 +24,8 @@
     "sourceUrl": "https://github.com/Contrastive-LM/CLM",
     "imageUrl": "https://opengraph.githubassets.com/6eeba39d062a7eec39e997e0728ec4f93f9724451a2383129afaba2a97e69d42/Contrastive-LM/CLM",
     "imageColor": "#0B3D5C",
-    "publishedLabel": "Today"
+    "publishedLabel": "Today",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "kimi-k3-tpu-megakernel",
@@ -37,7 +39,8 @@
     "imageUrl": "https://inferact.ai/blog/tpu-megakernels/og-image.png",
     "imageColor": "#3D2914",
     "publishedLabel": "Today",
-    "longRead": true
+    "longRead": true,
+    "feedDate": "2026-09-25"
   },
   {
     "id": "gemini-tts-playground",
@@ -50,7 +53,8 @@
     "imageUrl": "https://simonwillison.net/2026/Sep/23/gemini-tts-playground/%EF%BF%BC%EF%BF%BC%20https://static.simonwillison.net/static/2026/tts-playground.webp",
     "imageColor": "#3D2914",
     "publishedLabel": "Yesterday",
-    "forEngineers": "This is a synthesizer with a speaker parameter. You already pass a voice id into a text-to-speech call. Here two new Gemini models add a catalog of about 2,000 voices, plus one you enroll from a 30-second clip you have the rights to use."
+    "forEngineers": "This is a synthesizer with a speaker parameter. You already pass a voice id into a text-to-speech call. Here two new Gemini models add a catalog of about 2,000 voices, plus one you enroll from a 30-second clip you have the rights to use.",
+    "feedDate": "2026-09-24"
   },
   {
     "id": "2026-09-24-how-much-of-your-work-a-15b-model-can",
@@ -63,7 +67,8 @@
     "sourceUrl": "https://theaicommit.com/2026-09-24-how-much-of-your-work-a-15b-model-can-actually-close/",
     "imageUrl": "https://theaicommit.com/og/2026-09-24.png",
     "imageColor": "#4A1942",
-    "publishedLabel": "Today"
+    "publishedLabel": "Today",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "googles-suncatcher-project-aims-to-put-ai-data-c",
@@ -76,7 +81,8 @@
     "imageUrl": "https://the-decoder.com/wp-content/uploads/2026/09/gemini_blue.png",
     "imageColor": "#0B3D5C",
     "publishedLabel": "Today",
-    "forEngineers": "This is a batch job on a machine with a power window, not a region that stays up. An orbital worker only runs while it has sun. You schedule for that window. You do not treat it as capacity you can call any hour."
+    "forEngineers": "This is a batch job on a machine with a power window, not a region that stays up. An orbital worker only runs while it has sun. You schedule for that window. You do not treat it as capacity you can call any hour.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "metas-muse-charm-looks-like-a-tamagotchi-but-its",
@@ -89,7 +95,8 @@
     "imageUrl": "https://techcrunch.com/wp-content/uploads/2026/09/mark-zuckerberg-muse-charm-getty.jpg?resize=1200,800",
     "imageColor": "#102A43",
     "publishedLabel": "Today",
-    "forEngineers": "This is a small state machine on a device you already carry. A Tamagotchi is a tick, a bit of local state, and a screen. The card does not name a model or an API, so the check is whether Charm is that loop only, or a model wearing the toy."
+    "forEngineers": "This is a small state machine on a device you already carry. A Tamagotchi is a tick, a bit of local state, and a screen. The card does not name a model or an API, so the check is whether Charm is that loop only, or a model wearing the toy.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "introducing-inkling",
@@ -102,7 +109,8 @@
     "imageUrl": "https://thinkingmachines.ai/news/introducing-inkling/images/cover-social-inkling-post.png",
     "imageColor": "#0B3D5C",
     "publishedLabel": "Today",
-    "forEngineers": "This is publishing the artifact, not only the hosted service. Weights you can download are a package you can pin, fork, and run. The platform is the registry. The model is the thing you version."
+    "forEngineers": "This is publishing the artifact, not only the hosted service. Weights you can download are a package you can pin, fork, and run. The platform is the registry. The model is the thing you version.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "muse-openclaw-instinct-lookalike",
@@ -115,7 +123,8 @@
     "imageUrl": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/09/268774_The_hottest_AI_agent_platforms_are_just_OpenClaw_CVirginia2.jpg?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200",
     "imageColor": "#102A43",
     "publishedLabel": "Today",
-    "forEngineers": "This is a lookalike of an agent you may already run. When a new product copies that shape, the diff that matters is the interface: what it can call, what it keeps, and where it runs. An App Store rank does not tell you that."
+    "forEngineers": "This is a lookalike of an agent you may already run. When a new product copies that shape, the diff that matters is the interface: what it can call, what it keeps, and where it runs. An App Store rank does not tell you that.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "introducing-deeplearning-ai-pro",
@@ -128,7 +137,8 @@
     "imageUrl": "https://charonhub.deeplearning.ai/content/images/2025/10/DeepLearning.AI-Pro-Card.png",
     "imageColor": "#4A1942",
     "publishedLabel": "Today",
-    "forEngineers": "This is a feature flag behind a membership. Tools that land first for Pro members are a rollout, not a new runtime. You wait until the same capability is on an API you can call, or you treat the course as the docs."
+    "forEngineers": "This is a feature flag behind a membership. Tools that land first for Pro members are a rollout, not a new runtime. You wait until the same capability is on an API you can call, or you treat the course as the docs.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "black-forest-labs-launches-flux-3-action-an-open",
@@ -141,7 +151,8 @@
     "imageUrl": "https://the-decoder.com/wp-content/uploads/2026/09/bfl_black_orest_labs_logo-2.png",
     "imageColor": "#0B3D5C",
     "publishedLabel": "Today",
-    "forEngineers": "This is a control head on a model that already learned how scenes move. FLUX 3 was trained on video, image, and audio. Action is the part that turns that into a signal a robot can follow. You test it as a controller, not as another image generator."
+    "forEngineers": "This is a control head on a model that already learned how scenes move. FLUX 3 was trained on video, image, and audio. Action is the part that turns that into a signal a robot can follow. You test it as a controller, not as another image generator.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "deepseek-r1-an-affordable-rival-to-openais-o1",
@@ -154,7 +165,8 @@
     "imageUrl": "https://charonhub.deeplearning.ai/content/images/2025/01/unnamed--47--1.png",
     "imageColor": "#4A1942",
     "publishedLabel": "Today",
-    "forEngineers": "This is a slow path you invoke on purpose. The model spends a long trace reasoning before it writes the answer, the way a planner spends time before it runs the query. You pay that latency only when the question needs the trace."
+    "forEngineers": "This is a slow path you invoke on purpose. The model spends a long trace reasoning before it writes the answer, the way a planner spends time before it runs the query. You pay that latency only when the question needs the trace.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "googles-first-suncatcher-orbital-data-center-tes",
@@ -167,7 +179,8 @@
     "imageUrl": "https://cdn.arstechnica.net/wp-content/uploads/2026/09/suncatcher-1152x648.png",
     "imageColor": "#102A43",
     "publishedLabel": "Today",
-    "forEngineers": "This is a canary with a hard timeout. Four TPUs that run for 15 minutes are a job with a deadline, not a cluster. You learn whether the stack boots in orbit. You do not learn how it behaves as a region."
+    "forEngineers": "This is a canary with a hard timeout. Four TPUs that run for 15 minutes are a job with a deadline, not a cluster. You learn whether the stack boots in orbit. You do not learn how it behaves as a region.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "runway",
@@ -180,7 +193,8 @@
     "imageUrl": "https://substackcdn.com/image/fetch/$s_!hB4W!,w_1200,h_600,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-video.s3.amazonaws.com%2Fvideo_upload%2Fpost%2F217289983%2Ffa899450-7781-454b-838b-85a733c16fce%2Ftranscoded-1790297181.png",
     "imageColor": "#4A1942",
     "publishedLabel": "Today",
-    "forEngineers": "This is a game loop with a world state. Persistent context is the scene. Timed actions are the inputs. The model renders the next video and audio from that state, so the thing you debug is the state, not a one-shot prompt."
+    "forEngineers": "This is a game loop with a world state. Persistent context is the scene. Timed actions are the inputs. The model renders the next video and audio from that state, so the thing you debug is the state, not a one-shot prompt.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "google-gemini-business-phone-calls",
@@ -193,7 +207,8 @@
     "imageUrl": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/08/Google-Pixel-11-Pro-Photos-of-Phone-Using-On-Ear.jpg?quality=90&strip=all&crop=0%2C10.735179330127%2C100%2C78.529641339745&w=1200",
     "imageColor": "#102A43",
     "publishedLabel": "Today",
-    "forEngineers": "This is an outbound session with hold time and a goal. A phone call is a worker that talks to a human system until it finishes. If the only surface is a Pixel setting, you cannot call it from your stack. If it is an API, it is that worker."
+    "forEngineers": "This is an outbound session with hold time and a goal. A phone call is a worker that talks to a human system until it finishes. If the only surface is a Pixel setting, you cannot call it from your stack. If it is an API, it is that worker.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "anthropic-says-claude-discovered-a-new-enzyme-sy",
@@ -206,7 +221,8 @@
     "imageUrl": "https://the-decoder.com/wp-content/uploads/2026/09/claude_enzyme.png",
     "imageColor": "#0B3D5C",
     "publishedLabel": "Today",
-    "forEngineers": "This is a search over a corpus, then a lab check. Claude mined DNA databases the way you grep a repo for a pattern you have seen before. The CRISPR resemblance is the hypothesis. The experiment is the test that decides if the hit is real."
+    "forEngineers": "This is a search over a corpus, then a lab check. Claude mined DNA databases the way you grep a repo for a pattern you have seen before. The CRISPR resemblance is the hypothesis. The experiment is the test that decides if the hit is real.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "putting-task-expertise-into-rl",
@@ -219,7 +235,8 @@
     "imageUrl": "https://thinkingmachines.ai/news/putting-task-expertise-into-rl/images/cover-social.png",
     "imageColor": "#0B3D5C",
     "publishedLabel": "Today",
-    "forEngineers": "This is putting the expert into the training loop instead of into a prompt. People already write the custom SQL that answers a business question. The work is teaching the model that skill, so the query comes out of training rather than a template you maintain by hand."
+    "forEngineers": "This is putting the expert into the training loop instead of into a prompt. People already write the custom SQL that answers a business question. The work is teaching the model that skill, so the query comes out of training rather than a template you maintain by hand.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "inkling-small",
@@ -232,7 +249,8 @@
     "imageUrl": "https://thinkingmachines.ai/news/inkling-small/images/cover-social-inkling-small-post.png",
     "imageColor": "#0B3D5C",
     "publishedLabel": "Today",
-    "forEngineers": "This is a smaller binary with the same job. A mixture-of-experts that keeps 12B of 276B parameters active is a router that wakes a slice of the weights. You pay for the active slice, and you compare it to full Inkling on the tasks you already run."
+    "forEngineers": "This is a smaller binary with the same job. A mixture-of-experts that keeps 12B of 276B parameters active is a router that wakes a slice of the weights. You pay for the active slice, and you compare it to full Inkling on the tasks you already run.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "prismml-brings-its-tiny-llms-to-qualcomm-powered",
@@ -245,7 +263,8 @@
     "imageUrl": "https://techcrunch.com/wp-content/uploads/2026/09/PrismML-Snapdragon-smartglasses.png?w=612",
     "imageColor": "#102A43",
     "publishedLabel": "Today",
-    "forEngineers": "This is compiling a model onto a device that cannot host the datacenter one. Glasses have a power budget and a chip. A tiny model is the build that fits that budget. The check is whether you can run their weights on that Qualcomm target."
+    "forEngineers": "This is compiling a model onto a device that cannot host the datacenter one. Glasses have a power budget and a chip. A tiny model is the build that fits that budget. The check is whether you can run their weights on that Qualcomm target.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "bottlecap-ai-releases-thinkingcap-qwen3-8-27b-37",
@@ -258,7 +277,8 @@
     "imageUrl": "https://www.marktechpost.com/wp-content/uploads/2026/09/blog111-1-4.png",
     "imageColor": "#0B3D5C",
     "publishedLabel": "Today",
-    "forEngineers": "This is shortening a log without dropping the result. A reasoning trace is a stack of intermediate writes. Cutting 37.2% of those tokens for a 0.86 point accuracy drop is a budget: keep the decision, drop the chatter."
+    "forEngineers": "This is shortening a log without dropping the result. A reasoning trace is a stack of intermediate writes. Cutting 37.2% of those tokens for a 0.86 point accuracy drop is a budget: keep the decision, drop the chatter.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "sakana-ai-hires-jurgen-schmidhuber-inventor-of-d",
@@ -271,7 +291,8 @@
     "imageUrl": "https://the-decoder.com/wp-content/uploads/2024/01/sakana_ai_logo.png",
     "imageColor": "#0B3D5C",
     "publishedLabel": "Today",
-    "forEngineers": "This is hiring the person who wrote papers your systems already depend on. A chief advisor does not change the binary you run today. It changes who decides the next architecture. This card has no new model to call."
+    "forEngineers": "This is hiring the person who wrote papers your systems already depend on. A chief advisor does not change the binary you run today. It changes who decides the next architecture. This card has no new model to call.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "introducing-muse-spark-1-3",
@@ -284,7 +305,8 @@
     "imageUrl": "https://lookaside.fbsbx.com/elementpath/media/?media_id=954058993611225&version=1788350660",
     "imageColor": "#0B3D5C",
     "publishedLabel": "22d ago",
-    "forEngineers": "This is the same service with a tighter loop. About 20% fewer tool calls and 25% fewer tokens means the agent stops earlier, the way a lower retry budget spends less to reach a result. You switch the model id before you scale the hardware."
+    "forEngineers": "This is the same service with a tighter loop. About 20% fewer tool calls and 25% fewer tokens means the agent stops earlier, the way a lower retry budget spends less to reach a result. You switch the model id before you scale the hardware.",
+    "feedDate": "2026-09-03"
   },
   {
     "id": "introducing-system-one-models-and-jev",
@@ -297,7 +319,8 @@
     "imageUrl": "https://framerusercontent.com/images/RtIGTDwO43jR4ZDilesXiR5znc.jpg",
     "imageColor": "#0B3D5C",
     "publishedLabel": "9d ago",
-    "forEngineers": "This is a function that returns a typed value. You already split “decide” from “write the paragraph.” Jev is the decide function: state in, a choice or a score out, no text. The language model stays the call you make only when the answer is free-form."
+    "forEngineers": "This is a function that returns a typed value. You already split “decide” from “write the paragraph.” Jev is the decide function: state in, a choice or a score out, no text. The language model stays the call you make only when the answer is free-form.",
+    "feedDate": "2026-09-16"
   },
   {
     "id": "bringing-chatgpt-for-teachers-to-more-us-school-",
@@ -310,7 +333,8 @@
     "imageUrl": "https://images.ctfassets.net/kftzwdyauwt9/MZ8qHUMTGzFyaBLIEQFqE/e5d75c7622ab6a657320b1504510f154/teachers-original-neutral-social.png?w=1600&h=900&fit=fill",
     "imageColor": "#0B3D5C",
     "publishedLabel": "29d ago",
-    "forEngineers": "This is a rollout to more tenants. Fifty-five more school systems is an allowlist growing, plus training for the people who will use it. It is not a new model. It is the same product turned on for more orgs."
+    "forEngineers": "This is a rollout to more tenants. Fifty-five more school systems is an allowlist growing, plus training for the people who will use it. It is not a new model. It is the same product turned on for more orgs.",
+    "feedDate": "2026-08-27"
   },
   {
     "id": "gpt-5-6-in-kiro",
@@ -323,7 +347,8 @@
     "imageUrl": "https://images.ctfassets.net/kftzwdyauwt9/6r1E6E5mcdQEGztu6B1TI6/7e1ab3332eb5440e41cb64ba59c65d2b/OAI_Kiro_Partnership_16x9_SEO_Official_Full_Lockup_3840x2160.png?w=1600&h=900&fit=fill",
     "imageColor": "#0B3D5C",
     "publishedLabel": "31d ago",
-    "forEngineers": "This is swapping the model behind a client you already use. Kiro is the IDE. GPT-5.6 is the engine. You retarget the client when the new engine does the same plan, build, and review loop at a better price, the way you bump a dependency."
+    "forEngineers": "This is swapping the model behind a client you already use. Kiro is the IDE. GPT-5.6 is the engine. You retarget the client when the new engine does the same plan, build, and review loop at a better price, the way you bump a dependency.",
+    "feedDate": "2026-08-25"
   },
   {
     "id": "08-19-26",
@@ -336,7 +361,8 @@
     "imageUrl": "https://ptht05hbb1ssoooe.public.blob.vercel-storage.com/assets/changelog/opengraph-changelog-08-17-26-5Fvh2Ff2noumYmXOC4Jqv93VpEABdp.png",
     "imageColor": "#3D2914",
     "publishedLabel": "37d ago",
-    "forEngineers": "This is a worker that subscribes to events instead of waiting for you to press run. It picks up work, holds a goal, and keeps the loop going. That is a queue consumer with a completion condition. You still decide which events are allowed to enqueue a job."
+    "forEngineers": "This is a worker that subscribes to events instead of waiting for you to press run. It picks up work, holds a goal, and keeps the loop going. That is a queue consumer with a completion condition. You still decide which events are allowed to enqueue a job.",
+    "feedDate": "2026-08-19"
   },
   {
     "id": "origin-code-hosting",
@@ -349,7 +375,8 @@
     "imageUrl": "https://ptht05hbb1ssoooe.public.blob.vercel-storage.com/assets/og/og-origin-code-hosting-08-17-26-iibBEcxTigpnjXaBULY8Du327sx4P1.png",
     "imageColor": "#3D2914",
     "publishedLabel": "39d ago",
-    "forEngineers": "This is standing up a git remote inside the agent product. Repos, pull requests, browsing, and GitHub sync are the storage and the bridge. Agent-native features are the part that is not here yet. Today it is source control. The agent is a client of it."
+    "forEngineers": "This is standing up a git remote inside the agent product. Repos, pull requests, browsing, and GitHub sync are the storage and the bridge. Agent-native features are the part that is not here yet. Today it is source control. The agent is a client of it.",
+    "feedDate": "2026-08-17"
   },
   {
     "id": "previewing-ultrafast",
@@ -362,7 +389,8 @@
     "imageUrl": "https://images.ctfassets.net/kftzwdyauwt9/3Hr2P0ohSh8XIvwvdWTiqw/bc17823dc335767da94bbef2e1a90fa2/previewing-ultrafast-mode--seo-v001.png?w=1600&h=900&fit=fill",
     "imageColor": "#0B3D5C",
     "publishedLabel": "42d ago",
-    "forEngineers": "This is a faster tier of the same function. Ultrafast runs GPT-5.6 Sol on Cerebras at up to 750 tokens a second, about 14×. You are choosing a different machine behind a familiar API shape. You use it when latency, not a smarter model, is the constraint."
+    "forEngineers": "This is a faster tier of the same function. Ultrafast runs GPT-5.6 Sol on Cerebras at up to 750 tokens a second, about 14×. You are choosing a different machine behind a familiar API shape. You use it when latency, not a smarter model, is the constraint.",
+    "feedDate": "2026-08-14"
   },
   {
     "id": "08-13-26",
@@ -375,7 +403,8 @@
     "imageUrl": "https://ptht05hbb1ssoooe.public.blob.vercel-storage.com/assets/changelog/opengraph-changelog-aug-13-u1lAbXcZax7SZDCXHxwdPnQFmNX9z1.png",
     "imageColor": "#3D2914",
     "publishedLabel": "43d ago",
-    "forEngineers": "This is a warm pool. Builds are copies of the repo with dependencies already installed. An agent boots into that image instead of running setup on the critical path. You already do this with CI caches. Here the cache is the agent's starting filesystem."
+    "forEngineers": "This is a warm pool. Builds are copies of the repo with dependencies already installed. An agent boots into that image instead of running setup on the critical path. You already do this with CI caches. Here the cache is the agent's starting filesystem.",
+    "feedDate": "2026-08-13"
   },
   {
     "id": "putting-sign-language-ai-into-users-hands",
@@ -387,7 +416,8 @@
     "sourceUrl": "https://deepmind.google/blog/putting-sign-language-ai-into-users-hands/",
     "imageColor": "#4A1942",
     "publishedLabel": "43d ago",
-    "forEngineers": "This is a new input codec on a recognizer. Speech-to-text maps audio to text. Sign-language-to-text maps video of hands to text. The product is for Deaf and hard-of-hearing users. The engineering shape is another front end on the same kind of pipeline."
+    "forEngineers": "This is a new input codec on a recognizer. Speech-to-text maps audio to text. Sign-language-to-text maps video of hands to text. The product is for Deaf and hard-of-hearing users. The engineering shape is another front end on the same kind of pipeline.",
+    "feedDate": "2026-08-13"
   },
   {
     "id": "daybreak-models-are-now-available-on-aws",
@@ -400,7 +430,8 @@
     "imageUrl": "https://images.ctfassets.net/kftzwdyauwt9/6RITuNETzGy8qYTRq0ePqm/e2efee656f610e90b2b2713625aa0de1/SEO.png?w=1600&h=900&fit=fill",
     "imageColor": "#0B3D5C",
     "publishedLabel": "44d ago",
-    "forEngineers": "This is shipping a capability into a cloud you already bill. Daybreak on Bedrock is a new model id in an account you have. You call it from the security workflows you already run there, instead of standing up a second vendor for that job."
+    "forEngineers": "This is shipping a capability into a cloud you already bill. Daybreak on Bedrock is a new model id in an account you have. You call it from the security workflows you already run there, instead of standing up a second vendor for that job.",
+    "feedDate": "2026-08-12"
   },
   {
     "id": "introducing-the-agents-api",
@@ -413,7 +444,8 @@
     "imageUrl": "https://images.ctfassets.net/kftzwdyauwt9/430gA5qBJZHD8Dd4uGmm6J/f91d9df145eab0f0f981f60958026813/og-image.png?w=1600&h=900&fit=fill",
     "imageColor": "#0B3D5C",
     "publishedLabel": "15d ago",
-    "forEngineers": "This is a managed worker API for long-running agents. You hand it a job. The Codex harness keeps the session, the tools, and the orchestration. You stop being the process supervisor. You become the caller."
+    "forEngineers": "This is a managed worker API for long-running agents. You hand it a job. The Codex harness keeps the session, the tools, and the orchestration. You stop being the process supervisor. You become the caller.",
+    "feedDate": "2026-09-10"
   },
   {
     "id": "projects",
@@ -426,7 +458,8 @@
     "imageUrl": "https://ptht05hbb1ssoooe.public.blob.vercel-storage.com/assets/changelog/projects-changelog-og-1tJn0EHrt5kUUGKXB61BphMRxEMRzl.png",
     "imageColor": "#3D2914",
     "publishedLabel": "15d ago",
-    "forEngineers": "This is a long-lived workspace instead of a single chat. A feature or a migration keeps context for months, and subagents are workers it can fan out. Recurring work is a schedule. The project is the database. The chats were the requests."
+    "forEngineers": "This is a long-lived workspace instead of a single chat. A feature or a migration keeps context for months, and subagents are workers it can fan out. Recurring work is a schedule. The project is the database. The chats were the requests.",
+    "feedDate": "2026-09-10"
   },
   {
     "id": "gpt-6-astra-next-generation-work",
@@ -439,7 +472,8 @@
     "imageUrl": "https://images.ctfassets.net/kftzwdyauwt9/1UclxTs0019dGYT78njfV7/564c2815192122bcdcedce7b4ab36e3a/Business_blog_16x9.png?w=1600&h=900&fit=fill",
     "imageColor": "#0B3D5C",
     "publishedLabel": "15d ago",
-    "forEngineers": "This is a larger default for office work, with computer use added. Computer use means the model drives a UI, not only a text API. You treat that like giving a process permission to click, and you scope what it is allowed to touch."
+    "forEngineers": "This is a larger default for office work, with computer use added. Computer use means the model drives a UI, not only a text API. You treat that like giving a process permission to click, and you scope what it is allowed to touch.",
+    "feedDate": "2026-09-10"
   },
   {
     "id": "introducing-chatgpt-images-2-5",
@@ -452,7 +486,8 @@
     "imageUrl": "https://images.ctfassets.net/kftzwdyauwt9/6J668sj93QnQ8PWP7epUDv/3dbd2d2350053d96b03477d0fdb2e2c6/images2point5_16-9c.png?w=1600&h=900&fit=fill",
     "imageColor": "#0B3D5C",
     "publishedLabel": "16d ago",
-    "forEngineers": "This is an image function that takes references, not only a prompt. Sketches and photos are inputs, the way a renderer takes a scene file. You judge it by how little it invents past what you handed in."
+    "forEngineers": "This is an image function that takes references, not only a prompt. Sketches and photos are inputs, the way a renderer takes a scene file. You judge it by how little it invents past what you handed in.",
+    "feedDate": "2026-09-09"
   },
   {
     "id": "research-acceleration-view-inside-openai",
@@ -465,7 +500,8 @@
     "imageUrl": "https://images.ctfassets.net/kftzwdyauwt9/CKNTAkrFq7W0JOjXP5np2/c26e2323a05dec6bd41f6515c5d6be0f/SEO_Card__11_.png?w=1600&h=900&fit=fill",
     "imageColor": "#0B3D5C",
     "publishedLabel": "18d ago",
-    "forEngineers": "This is instrumenting the research loop the way you instrument production. Coding agents are workers on experiments. The numbers that matter are how fast trials run and how hard the tasks got. The charts are a dashboard. They are not a model you can call."
+    "forEngineers": "This is instrumenting the research loop the way you instrument production. Coding agents are workers on experiments. The numbers that matter are how fast trials run and how hard the tasks got. The charts are a dashboard. They are not a model you can call.",
+    "feedDate": "2026-09-07"
   },
   {
     "id": "gpt-6-astra",
@@ -478,7 +514,8 @@
     "imageUrl": "https://images.ctfassets.net/kftzwdyauwt9/6ibCaqsoO7F6XCNCIO8zaZ/9475cdebc1f0af100414f1c85860fc4c/Hero_16x9.png?w=1600&h=900&fit=fill",
     "imageColor": "#0B3D5C",
     "publishedLabel": "21d ago",
-    "forEngineers": "This is a new top-of-line runtime. Astra is the model they point at computer use, coding, cybersecurity, and science. Switching to it is a dependency bump. You re-run the evals you already trust before you make it the default."
+    "forEngineers": "This is a new top-of-line runtime. Astra is the model they point at computer use, coding, cybersecurity, and science. Switching to it is a dependency bump. You re-run the evals you already trust before you make it the default.",
+    "feedDate": "2026-09-04"
   },
   {
     "id": "safety-overview-gpt-6-astra",
@@ -491,7 +528,8 @@
     "imageUrl": "https://images.ctfassets.net/kftzwdyauwt9/4yt4SoYcLzQmJlCi8mhR0V/b0c0bd94bb9255bc363f08e1abea7d75/safety-overview-gpt-6-astra-seo.png?w=1600&h=900&fit=fill",
     "imageColor": "#0B3D5C",
     "publishedLabel": "22d ago",
-    "forEngineers": "This is a capability gate. Critical on their cybersecurity scale means the model can do enough that they will not ship it unlocked. You treat it like a privileged binary. The overview is the policy around that binary, not a new API."
+    "forEngineers": "This is a capability gate. Critical on their cybersecurity scale means the model can do enough that they will not ship it unlocked. You treat it like a privileged binary. The overview is the policy around that binary, not a new API.",
+    "feedDate": "2026-09-03"
   },
   {
     "id": "self-hosted-machines",
@@ -504,7 +542,8 @@
     "imageUrl": "https://ptht05hbb1ssoooe.public.blob.vercel-storage.com/assets/blog/cursor-run-on-remote-machines-loBz4KzTHKq1RvZG4Ka07UpsCIDYwx.png",
     "imageColor": "#3D2914",
     "publishedLabel": "23d ago",
-    "forEngineers": "This is running the worker inside your network. Tool execution stays on machines you own, so the repo, build outputs, and secrets never leave. The agent still decides the calls. A pool is a set of those workers, and any free one can claim the job."
+    "forEngineers": "This is running the worker inside your network. Tool execution stays on machines you own, so the repo, build outputs, and secrets never leave. The agent still decides the calls. A pool is a set of those workers, and any free one can claim the job.",
+    "feedDate": "2026-09-02"
   },
   {
     "id": "expanding-access-to-ai-with-chatgpt-ads",
@@ -517,7 +556,8 @@
     "imageUrl": "https://images.ctfassets.net/kftzwdyauwt9/2jLC4QaqjiApUiHrbfSUY8/9608a468da57d55c2cf88dddb7bd0b8d/expanding-access-to-ai--seo-purple-v001.png?w=1600&h=900&fit=fill",
     "imageColor": "#0B3D5C",
     "publishedLabel": "24d ago",
-    "forEngineers": "This is a free tier funded by an ad slot. A billion dollars of annualized ad revenue is the business model, not a model change. The engineering question is whether a surface you call now carries that slot. This card is the consumer product."
+    "forEngineers": "This is a free tier funded by an ad slot. A billion dollars of annualized ad revenue is the business model, not a model change. The engineering question is whether a surface you call now carries that slot. This card is the consumer product.",
+    "feedDate": "2026-09-01"
   },
   {
     "id": "piloting-the-worlds-first-double-blind-ai-evalua",
@@ -529,7 +569,8 @@
     "sourceUrl": "https://deepmind.google/blog/piloting-the-worlds-first-double-blind-ai-evaluations/",
     "imageColor": "#4A1942",
     "publishedLabel": "28d ago",
-    "forEngineers": "This is a sealed test. If the model has already seen the questions, the score is contaminated, the way a unit test means nothing once the code special-cases it. A double-blind setup hides the items until the run. The cryptography is how they keep the seal."
+    "forEngineers": "This is a sealed test. If the model has already seen the questions, the score is contaminated, the way a unit test means nothing once the code special-cases it. A double-blind setup hides the items until the run. The cryptography is how they keep the seal.",
+    "feedDate": "2026-08-28"
   },
   {
     "id": "start-from-scratch",
@@ -542,7 +583,8 @@
     "imageUrl": "https://ptht05hbb1ssoooe.public.blob.vercel-storage.com/OG%20Images/start-from-scratch-og-xe5V82GbNY9kMLtaFgB1ZCzEOgGJKZ.png",
     "imageColor": "#3D2914",
     "publishedLabel": "29d ago",
-    "forEngineers": "This is creating the repo as a side effect of the first prompt. You no longer need a GitHub remote before the agent can start. Cursor makes an Origin repo underneath. The prompt is the request. The repo is the workspace it writes into."
+    "forEngineers": "This is creating the repo as a side effect of the first prompt. You no longer need a GitHub remote before the agent can start. Cursor makes an Origin repo underneath. The prompt is the request. The repo is the workspace it writes into.",
+    "feedDate": "2026-08-27"
   },
   {
     "id": "gemini-3-5-transcribe",
@@ -555,7 +597,8 @@
     "imageUrl": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/gemini_3-5_transcribe.width-1300.jpg",
     "imageColor": "#4A1942",
     "publishedLabel": "29d ago",
-    "forEngineers": "This is a better speech-to-text function. Transcription is a pipeline from audio to text. A more intelligent transcriber does more than dump the words. You swap the model id on the call you already make."
+    "forEngineers": "This is a better speech-to-text function. Transcription is a pipeline from audio to text. A more intelligent transcriber does more than dump the words. You swap the model id on the call you already make.",
+    "feedDate": "2026-08-27"
   },
   {
     "id": "2026-09-23-copilot-code-review-more-ways-to-requ",
@@ -568,7 +611,8 @@
     "imageUrl": "https://github.blog/wp-content/uploads/2026/09/656948233-04568c82-144a-4cae-9619-c88b8a75ff59.jpg",
     "imageColor": "#3D2914",
     "publishedLabel": "Yesterday",
-    "forEngineers": "This is opening a setting that used to be plan-gated. Personal code-review config moving onto more Copilot plans is a flag opening up. The review bot is the same worker. What changed is who can set how it runs."
+    "forEngineers": "This is opening a setting that used to be plan-gated. Personal code-review config moving onto more Copilot plans is a flag opening up. The review bot is the same worker. What changed is who can set how it runs.",
+    "feedDate": "2026-09-24"
   },
   {
     "id": "2026-09-23-local-sandboxing-in-the-github-copilo",
@@ -581,7 +625,8 @@
     "imageUrl": "https://github.blog/wp-content/uploads/2026/09/656087900-e37216e5-3bd4-448b-bcb5-03bd78440434.jpg",
     "imageColor": "#3D2914",
     "publishedLabel": "Yesterday",
-    "forEngineers": "This is a sandbox around a local agent. Commands run with a reduced view of files and the network, the way a container drops capabilities. /sandbox turns that on for the session, so a bad command cannot see the rest of the machine."
+    "forEngineers": "This is a sandbox around a local agent. Commands run with a reduced view of files and the network, the way a container drops capabilities. /sandbox turns that on for the session, so a bad command cannot see the rest of the machine.",
+    "feedDate": "2026-09-24"
   },
   {
     "id": "2026-09-22-opentelemetry-in-the-github-copilot-a",
@@ -594,7 +639,8 @@
     "imageUrl": "https://github.blog/wp-content/uploads/2026/09/656868336-bd15df17-d1d9-4a64-a109-cef31a4a41c0.jpg",
     "imageColor": "#3D2914",
     "publishedLabel": "Yesterday",
-    "forEngineers": "This is tracing the agent the way you trace a service. Spans for model calls and tool calls show where the time and the tokens went. You point the exporter at the collector you already run. The agent becomes another workload on the dashboard."
+    "forEngineers": "This is tracing the agent the way you trace a service. Spans for model calls and tool calls show where the time and the tokens went. You point the exporter at the collector you already run. The agent becomes another workload on the dashboard.",
+    "feedDate": "2026-09-24"
   },
   {
     "id": "2026-09-22-new-features-and-improvements-in-copi",
@@ -607,7 +653,8 @@
     "imageUrl": "https://github.blog/wp-content/themes/github-2021-child/dist/img/social-v3-new-releases.jpg",
     "imageColor": "#3D2914",
     "publishedLabel": "2d ago",
-    "forEngineers": "This is a client update, not a new model. JetBrains Copilot 1.18.0 adds control over tool approvals and the agent conversation. The built-in server stays on. Approvals are the permission prompt before a tool runs."
+    "forEngineers": "This is a client update, not a new model. JetBrains Copilot 1.18.0 adds control over tool approvals and the agent conversation. The built-in server stays on. Approvals are the permission prompt before a tool runs.",
+    "feedDate": "2026-09-23"
   },
   {
     "id": "2026-09-22-claude-opus-5-5-is-now-available-in-g",
@@ -620,7 +667,8 @@
     "imageUrl": "https://github.blog/wp-content/uploads/2026/09/654867127-281a777b-40e7-4dc2-b526-d16cd41d9df5.png",
     "imageColor": "#3D2914",
     "publishedLabel": "2d ago",
-    "forEngineers": "This is a new model id in a client you already use. Opus 5.5 in Copilot is a base-image swap. Early testing resolved tasks about as well as Opus 5 with fewer steps and tokens. You try it on the jobs where Opus 5 was the default."
+    "forEngineers": "This is a new model id in a client you already use. Opus 5.5 in Copilot is a base-image swap. Early testing resolved tasks about as well as Opus 5 with fewer steps and tokens. You try it on the jobs where Opus 5 was the default.",
+    "feedDate": "2026-09-23"
   },
   {
     "id": "2026-09-22-openais-gpt-6-sol-and-gpt-6-luna-now-",
@@ -633,7 +681,8 @@
     "imageUrl": "https://github.blog/wp-content/uploads/2026/09/656073943-1c4c7f74-e87c-42ce-95d0-9c3a7cd08237.png",
     "imageColor": "#3D2914",
     "publishedLabel": "2d ago",
-    "forEngineers": "This is two more sizes on the same menu. Sol and Luna sit next to Astra so you pick a model the way you pick an instance type: the expensive one for the hard job, the cheaper one for the rest. The client did not change. The catalog did."
+    "forEngineers": "This is two more sizes on the same menu. Sol and Luna sit next to Astra so you pick a model the way you pick an instance type: the expensive one for the hard job, the cheaper one for the rest. The client did not change. The catalog did.",
+    "feedDate": "2026-09-23"
   },
   {
     "id": "introducing-gpt-live-1-in-the-api",
@@ -646,7 +695,8 @@
     "imageUrl": "https://images.ctfassets.net/kftzwdyauwt9/7Mz7MwoSyFLdOMk26N1hCA/b66e84b656c1d666fc2adc1c56ff67f1/introducing-gpt-live-1-green-seo.png?w=1600&h=900&fit=fill",
     "imageColor": "#0B3D5C",
     "publishedLabel": "15d ago",
-    "forEngineers": "This is a full-duplex session instead of request-response. Voice that talks and listens at once is a call, not a completion. Custom voices and telephony are parameters on that session. You integrate it with an interrupt path."
+    "forEngineers": "This is a full-duplex session instead of request-response. Voice that talks and listens at once is a call, not a completion. Custom voices and telephony are parameters on that session. You integrate it with an interrupt path.",
+    "feedDate": "2026-09-10"
   },
   {
     "id": "rollouts-and-security-reviewer",
@@ -659,7 +709,8 @@
     "imageUrl": "https://ptht05hbb1ssoooe.public.blob.vercel-storage.com/assets/og/rollouts-security-reviewer-cl-og-gETNeLXHPfvrWaSPKRE0YbaxpwUHTK.png",
     "imageColor": "#3D2914",
     "publishedLabel": "2d ago",
-    "forEngineers": "This is two checks on the way to production. Rollouts watches each deploy and reports health per environment. Security Review reports exploitable bugs on the pull request. You turn them on beside the tests you already require."
+    "forEngineers": "This is two checks on the way to production. Rollouts watches each deploy and reports health per environment. Security Review reports exploitable bugs on the pull request. You turn them on beside the tests you already require.",
+    "feedDate": "2026-09-23"
   },
   {
     "id": "better-prompt-caching-for-gpt-6",
@@ -672,7 +723,8 @@
     "imageUrl": "https://images.ctfassets.net/kftzwdyauwt9/1GCXJNDUwggbqNGnGCATR3/7d3f2fc8ca3457597bcefc7fe30f5a64/7kneoqlc2qh37z1utkmtfk-seo-v1.png?w=1600&h=900&fit=fill",
     "imageColor": "#0B3D5C",
     "publishedLabel": "2d ago",
-    "forEngineers": "This is cache control on the prompt, the same idea as a cache key on a hot query. Higher hit rates, breakpoints you set, and diagnostics that show why a prefix missed. You put the stable prefix first so the next call reuses it."
+    "forEngineers": "This is cache control on the prompt, the same idea as a cache key on a hot query. Higher hit rates, breakpoints you set, and diagnostics that show why a prefix missed. You put the stable prefix first so the next call reuses it.",
+    "feedDate": "2026-09-23"
   },
   {
     "id": "how-shopify-built-a-continual-learning-loop-with",
@@ -684,7 +736,8 @@
     "sourceUrl": "https://pytorch.org/blog/how-shopify-built-a-continual-learning-loop-with-pytorch-and-vllm/",
     "imageColor": "#3D2914",
     "publishedLabel": "2d ago",
-    "forEngineers": "This is a daily train job fed by production failures. Failures become weights, the way error logs become a regression test, except the fix is a gradient step. They serve it with vLLM and report a 96% cost cut against the frontier model. The loop is the system."
+    "forEngineers": "This is a daily train job fed by production failures. Failures become weights, the way error logs become a regression test, except the fix is a gradient step. They serve it with vLLM and report a 96% cost cut against the frontier model. The loop is the system.",
+    "feedDate": "2026-09-23"
   },
   {
     "id": "gemini-live-avatar",
@@ -697,7 +750,8 @@
     "imageUrl": "https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Slide_16_9_-_37.width-1300.png",
     "imageColor": "#102A43",
     "publishedLabel": "Today",
-    "forEngineers": "This is overlapping I/O. The conversation stays open while a tool call runs in the background, the way a UI thread stays up during a fetch. The avatar is the view. The useful part is that the session does not block on the tool."
+    "forEngineers": "This is overlapping I/O. The conversation stays open while a tool call runs in the background, the way a UI thread stays up during a fetch. The avatar is the view. The useful part is that the session does not block on the tool.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "quail",
@@ -710,7 +764,8 @@
     "imageUrl": "https://fsdatalab.github.io/assets/blog/introducing-quail/quail-throughput-by-dataset.png",
     "imageColor": "#3D2914",
     "publishedLabel": "Today",
-    "forEngineers": "This is a query planner that knows about model calls. SQL and inference planned together means you do not round-trip to a separate service for every row. They report 1.84× a tuned vLLM baseline on QUAIL-B. You spike it when the work is classifying a table."
+    "forEngineers": "This is a query planner that knows about model calls. SQL and inference planned together means you do not round-trip to a separate service for every row. They report 1.84× a tuned vLLM baseline on QUAIL-B. You spike it when the work is classifying a table.",
+    "feedDate": "2026-09-25"
   },
   {
     "id": "gpt-6-sol-luna",
@@ -723,7 +778,8 @@
     "imageUrl": "https://images.ctfassets.net/kftzwdyauwt9/7fvmMcBIvMTXxVJh7NEMt1/48a75e624699bb1e218366c1d3522048/gpt-6-sol-luna-seo.png?w=1600&h=900&fit=fill",
     "imageColor": "#0B3D5C",
     "publishedLabel": "Yesterday",
-    "forEngineers": "This is a cheaper tier under the flagship. Sol and Luna are priced 50% below the old GPT-5.6 promo, and Sol at high effort beat Opus 5 on their bench at 9% of the cost. Astra stays the expensive path. You route routine work down."
+    "forEngineers": "This is a cheaper tier under the flagship. Sol and Luna are priced 50% below the old GPT-5.6 promo, and Sol at high effort beat Opus 5 on their bench at 9% of the cost. Astra stays the expensive path. You route routine work down.",
+    "feedDate": "2026-09-24"
   },
   {
     "id": "opus-5-5",
@@ -736,7 +792,8 @@
     "imageUrl": "https://www-cdn.anthropic.com/images/4zrzovbb/website/f4d37a1d1f582f53f4e89440062b649b6273a093-1200x630.jpg",
     "imageColor": "#0B3D5C",
     "publishedLabel": "2d ago",
-    "forEngineers": "This is a drop-in with a lower bill. Opus 5.5 does most of what Fable 5.1 does and costs 40% less to run than Opus 5. You swap the default the way you swap a library version: same class of job, re-check the audit, keep the safeguards."
+    "forEngineers": "This is a drop-in with a lower bill. Opus 5.5 does most of what Fable 5.1 does and costs 40% less to run than Opus 5. You swap the default the way you swap a library version: same class of job, re-check the audit, keep the safeguards.",
+    "feedDate": "2026-09-23"
   },
   {
     "id": "vllm-hw-agnostic",
@@ -748,7 +805,8 @@
     "sourceUrl": "https://pytorch.org/blog/hardware-agnostic-models-in-vllm/",
     "imageColor": "#3D2914",
     "publishedLabel": "2d ago",
-    "forEngineers": "This is a portable implementation behind the same interface. Hardware-agnostic layers let one model definition run when the fast kernel does not exist for that GPU. On H100s they stay within 3.4% of native throughput. The flag is USE_HW_AGNOSTIC=1."
+    "forEngineers": "This is a portable implementation behind the same interface. Hardware-agnostic layers let one model definition run when the fast kernel does not exist for that GPU. On H100s they stay within 3.4% of native throughput. The flag is USE_HW_AGNOSTIC=1.",
+    "feedDate": "2026-09-23"
   },
   {
     "id": "grok-4-7",
@@ -761,6 +819,7 @@
     "imageUrl": "https://x.ai/images/news/grok-4-7-og.webp",
     "imageColor": "#0B3D5C",
     "publishedLabel": "3d ago",
-    "forEngineers": "This is a stronger build at the same price and speed as 4.6. A longer training run on multi-hour tasks is a worker that holds a job open instead of abandoning it at a short timeout. You try it on long coding work before you move to a larger model."
+    "forEngineers": "This is a stronger build at the same price and speed as 4.6. A longer training run on multi-hour tasks is a worker that holds a job open instead of abandoning it at a short timeout. You try it on long coding work before you move to a larger model.",
+    "feedDate": "2026-09-22"
   }
 ]

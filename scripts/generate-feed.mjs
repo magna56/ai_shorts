@@ -518,6 +518,7 @@ async function toCard(item, feed, { required = false } = {}) {
     ...(imageUrl ? { imageUrl } : {}),
     imageColor: feed.color,
     publishedLabel: label(item.published),
+    feedDate: editorialDate(),
   };
 }
 
@@ -568,6 +569,15 @@ function words(value, count) {
   const taken = value.split(/\s+/).slice(0, count).join(" ");
   const end = taken.lastIndexOf(".");
   return end > 80 ? taken.slice(0, end + 1) : taken;
+}
+
+function editorialDate(now = new Date()) {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(now);
 }
 
 function label(date) {
