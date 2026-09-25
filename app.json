@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "AI Commit Shorts",
+    "name": "EngAI",
     "slug": "shortsai",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -11,14 +11,15 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.theaicommit.shorts",
+      "usesAppleSignIn": true,
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#0E1A17",
-        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundColor": "#ECD6BC",
+        "foregroundImage": "./assets/icon.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
@@ -36,12 +37,13 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#0E1A17",
+          "backgroundColor": "#ECD6BC",
           "image": "./assets/splash-icon.png",
           "imageWidth": 180
         }
       ],
-      "expo-image"
+      "expo-image",
+      "expo-apple-authentication"
     ],
     "extra": {
       "router": {},

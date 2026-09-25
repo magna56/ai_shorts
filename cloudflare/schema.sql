@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS devices (
+  token TEXT PRIMARY KEY,
+  updated_at INTEGER NOT NULL
+);

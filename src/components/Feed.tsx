@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   FlatList,
@@ -14,9 +15,11 @@ import {
   type Category,
   type Story,
 } from "../data/stories";
+import { useAccount } from "../hooks/useAccount";
+import { usePublishedFeed } from "../hooks/usePublishedFeed";
 import { useReadingRitual } from "../hooks/useReadingRitual";
 import { useSavedStories } from "../hooks/useSavedStories";
-import { colors, spacing } from "../theme";
+import { colors, radius, spacing } from "../theme";
 import { CategoryBar } from "./CategoryBar";
 import { RadarQuiz } from "./RadarQuiz";
 import { StoryCard, useCardHeight } from "./StoryCard";
@@ -34,17 +37,19 @@ export function Feed() {
   const [chromeHeight, setChromeHeight] = useState(0);
   const [onQuiz, setOnQuiz] = useState(false);
   const { savedIds, toggle, ready } = useSavedStories();
-  const ritual = useReadingRitual(STORIES.map((story) => story.id));
+  const { account } = useAccount();
+  const published = usePublishedFeed(STORIES);
+  const ritual = useReadingRitual(published.map((story) => story.id));
   const resumed = useRef(false);
 
   const stories = useMemo(() => {
     const byCategory =
       category === "All"
-        ? STORIES
-        : STORIES.filter((s) => s.category === category);
+        ? published
+        : published.filter((s) => s.category === category);
     if (!showSaved) return byCategory;
     return byCategory.filter((s) => savedIds.has(s.id));
-  }, [category, showSaved, savedIds]);
+  }, [category, showSaved, savedIds, published]);
 
   const quizFollows = category === "All" && !showSaved && stories.length > 0;
   const items = useMemo<FeedItem[]>(() => {
@@ -96,7 +101,7 @@ export function Feed() {
     : caughtUp
       ? "Caught up · next one lands through the day"
       : `${stories.length} ${stories.length === 1 ? "story" : "stories"} · about ${minutes} min`;
-  const headerOnPaper = stories.length === 0 || onQuiz;
+  const headerOnPaper = true;
 
   const emptyTitle = showSaved
     ? "Nothing saved yet"
@@ -114,15 +119,36 @@ export function Feed() {
         <View style={styles.topBar}>
           <View>
             <Text style={[styles.kicker, headerOnPaper && styles.kickerOnPaper]}>
-              Shorts
+              News
             </Text>
             <Text style={[styles.title, headerOnPaper && styles.titleOnPaper]}>
-              The AI Commit
+              Eng AI
             </Text>
+            <View style={styles.mastRule} />
             <Text style={[styles.subtitle, headerOnPaper && styles.subtitleOnPaper]}>
-              {stories.length === 0 ? "TLDR for your pocket" : sessionLine}
+              {stories.length === 0 ? "For software engineers" : sessionLine}
             </Text>
           </View>
+          <View style={styles.chips}>
+          <Pressable
+            onPress={() => router.push("/account")}
+            hitSlop={12}
+            accessibilityRole="button"
+            accessibilityLabel={account ? "Account" : "Sign in"}
+            style={[
+              styles.savedChip,
+              headerOnPaper && styles.savedChipOnPaper,
+            ]}
+          >
+            <Text
+              style={[
+                styles.savedLabel,
+                headerOnPaper && styles.savedLabelOnPaper,
+              ]}
+            >
+              {account ? account.name?.split(" ")[0] || "Account" : "Sign in"}
+            </Text>
+          </Pressable>
           <Pressable
             onPress={() => setShowSaved((on) => !on)}
             hitSlop={12}
@@ -145,6 +171,7 @@ export function Feed() {
               {showSaved ? "Saved" : `Saved ${savedIds.size}`}
             </Text>
           </Pressable>
+          </View>
         </View>
 
         <CategoryBar
@@ -216,7 +243,7 @@ export function Feed() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: colors.paper,
+    backgroundColor: colors.field,
   },
   chrome: {
     position: "absolute",
@@ -232,11 +259,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-end",
   },
-  savedChip: {
+  chips: {
+    flexDirection: "row",
+    gap: spacing.xs,
     marginBottom: 2,
+  },
+  savedChip: {
     paddingHorizontal: 12,
     paddingVertical: 6,
-    borderRadius: 999,
+    borderRadius: radius.control,
     backgroundColor: "rgba(14,26,23,0.35)",
     borderWidth: 1,
     borderColor: "rgba(255,255,255,0.28)",
@@ -246,8 +277,8 @@ const styles = StyleSheet.create({
     borderColor: colors.line,
   },
   savedChipActive: {
-    backgroundColor: "#FFFFFF",
-    borderColor: "#FFFFFF",
+    backgroundColor: colors.ink,
+    borderColor: colors.ink,
   },
   savedLabel: {
     fontFamily: "DMSans_600SemiBold",
@@ -258,7 +289,7 @@ const styles = StyleSheet.create({
     color: colors.ink,
   },
   savedLabelActive: {
-    color: colors.ink,
+    color: colors.paper,
   },
   kicker: {
     fontFamily: "DMSans_600SemiBold",
@@ -267,10 +298,17 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     color: "rgba(255,255,255,0.7)",
   },
+  mastRule: {
+    width: 36,
+    height: 3,
+    borderRadius: 2,
+    backgroundColor: colors.accent,
+    marginTop: 4,
+  },
   title: {
-    fontFamily: "SourceSerif4_600SemiBold",
-    fontSize: 20,
-    color: "#FFFFFF",
+    fontFamily: "SourceSerif4_700Bold",
+    fontSize: 22,
+    color: colors.ink,
   },
   kickerOnPaper: {
     color: colors.inkMuted,
@@ -292,7 +330,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: spacing.xl,
-    backgroundColor: colors.paper,
+    backgroundColor: colors.field,
     gap: spacing.sm,
   },
   emptyTitle: {

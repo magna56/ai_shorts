@@ -21,6 +21,7 @@ import {
 } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { AccountProvider } from "../hooks/useAccount";
 import { colors } from "../theme";
 
 SplashScreen.preventAutoHideAsync().catch(() => undefined);
@@ -53,8 +54,21 @@ export default function RootLayout() {
     <GestureHandlerRootView style={styles.root}>
       <PhoneStage>
         <SafeAreaProvider>
-          <StatusBar style="light" />
-          <Stack screenOptions={{ headerShown: false, animation: "fade" }} />
+          <AccountProvider>
+            <StatusBar style="dark" />
+            <Stack screenOptions={{ headerShown: false, animation: "fade" }}>
+              <Stack.Screen name="index" />
+              <Stack.Screen
+                name="account"
+                options={{
+                  presentation: "formSheet",
+                  sheetAllowedDetents: [0.55],
+                  sheetGrabberVisible: true,
+                  contentStyle: { backgroundColor: colors.paper },
+                }}
+              />
+            </Stack>
+          </AccountProvider>
         </SafeAreaProvider>
       </PhoneStage>
     </GestureHandlerRootView>
@@ -77,21 +91,28 @@ function PhoneStage({ children }: { children: ReactNode }) {
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: colors.ink },
+  root: {
+    flex: 1,
+    backgroundColor: colors.field,
+    ...Platform.select({
+      web: { width: "100%" as const, minHeight: "100%" as const },
+      default: {},
+    }),
+  },
   stage: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: colors.ink,
+    backgroundColor: colors.field,
   },
   phone: {
     width: PHONE_WIDTH,
     flex: 1,
-    backgroundColor: colors.paper,
+    backgroundColor: colors.field,
   },
   boot: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: colors.ink,
+    backgroundColor: colors.field,
   },
 });

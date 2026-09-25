@@ -1,0 +1,14 @@
+name = "engai"
+main = "src/index.ts"
+compatibility_date = "2026-09-25"
+account_id = "573958e0e782dd175caf762d7e255da8"
+workers_dev = true
+preview_urls = false
+
+[[d1_databases]]
+binding = "DB"
+database_name = "engai"
+database_id = "2979aeac-d103-43a1-a02f-66e07b6dacf3"
+
+[vars]
+FEED_URL = "https://engai.theaicommit.com/feed.json"

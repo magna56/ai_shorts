@@ -1,6 +1,6 @@
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import type { Category } from "../data/stories";
-import { colors, spacing } from "../theme";
+import { colors, radius, spacing } from "../theme";
 
 type Props = {
   categories: Category[];
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   chip: {
     paddingHorizontal: 14,
     paddingVertical: 8,
-    borderRadius: 999,
+    borderRadius: radius.control,
     borderWidth: 1,
     borderColor: "rgba(255,255,255,0.28)",
     backgroundColor: "rgba(14,26,23,0.35)",
@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
     borderColor: colors.line,
   },
   chipActive: {
-    backgroundColor: "#FFFFFF",
-    borderColor: "#FFFFFF",
+    backgroundColor: colors.ink,
+    borderColor: colors.ink,
   },
   label: {
     fontFamily: "DMSans_500Medium",
@@ -79,6 +79,6 @@ const styles = StyleSheet.create({
     color: colors.inkMuted,
   },
   labelActive: {
-    color: colors.ink,
+    color: colors.paper,
   },
 });

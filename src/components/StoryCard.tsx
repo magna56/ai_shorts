@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import type { Story } from "../data/stories";
-import { colors, spacing } from "../theme";
+import { colors, radius, spacing } from "../theme";
 import { StoryHeroImage } from "./StoryHeroImage";
 
 type Props = {
@@ -47,34 +47,29 @@ export function StoryCard({
   const isLast = index === total - 1;
 
   return (
-    <View style={[styles.card, { height: cardHeight }]}>
-      <StoryHeroImage
-        story={story}
-        style={[
-          styles.hero,
-          {
-            paddingTop: Math.max(chromeHeight, insets.top + 118) + spacing.sm,
-          },
-        ]}
-      >
-        <View style={styles.heroInner}>
-          <View style={styles.heroMeta}>
-            <Text style={styles.category}>{story.category.toUpperCase()}</Text>
-            <Text style={styles.progress}>
-              {index + 1} / {total}
-            </Text>
-          </View>
-          <Text style={styles.headline}>{story.headline}</Text>
-          <View style={styles.progressTrack}>
-            <View
-              style={[
-                styles.progressFill,
-                { width: `${((index + 1) / Math.max(total, 1)) * 100}%` },
-              ]}
-            />
-          </View>
-        </View>
-      </StoryHeroImage>
+    <View style={[styles.card, { height: cardHeight, paddingTop: chromeHeight + spacing.sm }]}>
+      <View style={styles.stack}>
+        <View style={[styles.sheet, styles.sheetFar]} />
+        <View style={[styles.sheet, styles.sheetNear]} />
+        <View style={styles.face}>
+          <StoryHeroImage story={story} style={styles.hero}>
+            <View style={styles.heroInner}>
+              <View style={styles.heroMeta}>
+                <Text style={styles.category}>{story.category.toUpperCase()}</Text>
+                <Text style={styles.progress}>
+                  {index + 1} / {total}
+                </Text>
+              </View>
+              <View style={styles.progressTrack}>
+                <View
+                  style={[
+                    styles.progressFill,
+                    { width: `${((index + 1) / Math.max(total, 1)) * 100}%` },
+                  ]}
+                />
+              </View>
+            </View>
+          </StoryHeroImage>
 
       <ScrollView
         style={styles.bodyScroll}
@@ -85,7 +80,16 @@ export function StoryCard({
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled
       >
+        <View style={styles.rule} />
+        {story.longRead ? <Text style={styles.longRead}>Long read</Text> : null}
+        <Text style={styles.headline}>{story.headline}</Text>
         <Text style={styles.summary}>{story.summary}</Text>
+            {story.forEngineers ? (
+              <View style={styles.whyBlock}>
+                <Text style={styles.whyLabel}>For a software engineer</Text>
+                <Text style={styles.why}>{story.forEngineers}</Text>
+              </View>
+            ) : null}
             <View style={styles.whyBlock}>
               <Text style={styles.whyLabel}>Why it matters</Text>
               <Text style={styles.why}>{story.whyItMatters}</Text>
@@ -134,6 +138,8 @@ export function StoryCard({
               : "Swipe up for the next"}
         </Text>
       </ScrollView>
+        </View>
+      </View>
     </View>
   );
 }
@@ -146,12 +152,40 @@ export function useCardHeight() {
 const styles = StyleSheet.create({
   card: {
     width: "100%",
+    backgroundColor: colors.field,
+    paddingHorizontal: spacing.md,
+  },
+  stack: {
+    flex: 1,
+    marginBottom: spacing.md,
+  },
+  sheet: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    borderRadius: radius.card,
+  },
+  sheetFar: {
+    top: 0,
+    bottom: 0,
+    backgroundColor: colors.slateFar,
+  },
+  sheetNear: {
+    top: 8,
+    bottom: 0,
+    backgroundColor: colors.slate,
+  },
+  face: {
+    flex: 1,
+    marginTop: 16,
     backgroundColor: colors.paper,
+    borderRadius: radius.card,
+    overflow: "hidden",
   },
   hero: {
-    flex: 1.05,
+    height: 168,
     paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.lg,
+    paddingBottom: spacing.md,
   },
   bodyScroll: {
     flex: 1,
@@ -159,6 +193,21 @@ const styles = StyleSheet.create({
   heroInner: {
     flex: 1,
     justifyContent: "flex-end",
+  },
+  rule: {
+    width: 72,
+    height: 3,
+    borderRadius: 2,
+    backgroundColor: colors.accent,
+    marginBottom: spacing.md,
+  },
+  longRead: {
+    fontFamily: "DMSans_600SemiBold",
+    fontSize: 11,
+    letterSpacing: 1.2,
+    textTransform: "uppercase",
+    color: colors.accent,
+    marginBottom: spacing.sm,
   },
   heroMeta: {
     flexDirection: "row",
@@ -178,12 +227,10 @@ const styles = StyleSheet.create({
   },
   headline: {
     fontFamily: "SourceSerif4_700Bold",
-    fontSize: 30,
-    lineHeight: 36,
-    color: "#FFFFFF",
-    textShadowColor: "rgba(0,0,0,0.45)",
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 8,
+    fontSize: 28,
+    lineHeight: 34,
+    color: colors.ink,
+    marginBottom: spacing.sm,
   },
   progressTrack: {
     marginTop: spacing.md,
@@ -194,16 +241,11 @@ const styles = StyleSheet.create({
   },
   progressFill: {
     height: "100%",
-    backgroundColor: "#7DFFC8",
+    backgroundColor: colors.accent,
   },
   body: {
-    flex: 1,
-    backgroundColor: colors.paperElevated,
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.lg,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
-    marginTop: -18,
   },
   summary: {
     fontFamily: "DMSans_400Regular",
@@ -215,14 +257,14 @@ const styles = StyleSheet.create({
     marginTop: spacing.md,
     paddingLeft: spacing.sm,
     borderLeftWidth: 3,
-    borderLeftColor: colors.signal,
+    borderLeftColor: colors.accent,
   },
   whyLabel: {
     fontFamily: "DMSans_600SemiBold",
     fontSize: 12,
     letterSpacing: 0.8,
     textTransform: "uppercase",
-    color: colors.signal,
+    color: colors.accent,
   },
   why: {
     marginTop: spacing.xs,
@@ -248,7 +290,7 @@ const styles = StyleSheet.create({
     color: colors.accent,
   },
   saveActive: {
-    color: colors.signal,
+    color: colors.ink,
   },
   actions: {
     marginTop: spacing.lg,
@@ -259,7 +301,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.ink,
     paddingVertical: 14,
-    borderRadius: 14,
+    borderRadius: radius.control,
     alignItems: "center",
   },
   primaryBtnText: {
@@ -270,17 +312,17 @@ const styles = StyleSheet.create({
   secondaryBtn: {
     paddingHorizontal: 18,
     paddingVertical: 14,
-    borderRadius: 14,
+    borderRadius: radius.control,
     borderWidth: 1,
     borderColor: colors.line,
-    backgroundColor: colors.signalSoft,
+    backgroundColor: colors.paper,
     alignItems: "center",
     justifyContent: "center",
   },
   secondaryBtnText: {
     fontFamily: "DMSans_600SemiBold",
     fontSize: 15,
-    color: colors.signal,
+    color: colors.ink,
   },
   hint: {
     marginTop: spacing.md,

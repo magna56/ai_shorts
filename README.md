@@ -1,6 +1,6 @@
-# AI Commit Shorts
+# EngAI
 
-iOS-first Expo app: **TLDR for your pocket** — dense AI engineering news in swipeable cards.
+iOS-first Expo app: AI news for software engineers, in swipeable cards.
 
 Part of [The AI Commit](https://theaicommit.com). Built for engineers and technical pros who already live on digests like TLDR AI, for commute / between-meeting moments email doesn’t cover.
 
@@ -50,4 +50,4 @@ Bundle id: `com.theaicommit.shorts`
 
 ## Product note
 
-Email digests (TLDR) and this app coexist: inbox for the desk, Shorts for phone moments. Curation taste matches TLDR density — models, tools, research, platforms — not productivity-prompt fluff.
+Email digests and EngAI coexist: inbox for the desk, the app for phone moments. Cards stay dense — models, tools, research, platforms — for software engineers, not a general AI audience. A later app, inAI, is the general-audience version. It waits until EngAI has shipped.

@@ -97,6 +97,7 @@ const draft = {
   write: {
     headline: "Decision, not the press-release title.",
     summary: "About 60 words from the excerpt. Numbers only if the page states them.",
+    forEngineers: "Map it onto a sort, a cache, a queue, or a lock. On a lab post, use that section.",
     whyItMatters: "What an engineer should do differently.",
   },
 };

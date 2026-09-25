@@ -12,6 +12,8 @@ export type Story = {
   category: Exclude<Category, "All">;
   headline: string;
   summary: string;
+  /** Familiar system this maps onto. Lab cards use the post's own section. */
+  forEngineers?: string;
   whyItMatters: string;
   sourceName: string;
   sourceUrl: string;
@@ -20,6 +22,8 @@ export type Story = {
   imageUrl?: string;
   imageColor: string;
   publishedLabel: string;
+  /** The one longer paper, kernel, or benchmark in a pass. */
+  longRead?: boolean;
 };
 
 /** Five checks from the current radar. Shown on their own page after the last card. */

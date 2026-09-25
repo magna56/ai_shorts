@@ -8,6 +8,11 @@
  * a price). Each run adds 10 to 12 cards, newest first, skipping URLs
  * already in the file.
  *
+ * Rule: the latest theaicommit.com lab is always one of those cards when
+ * its URL is not already in the file. It is not dropped by the news filters.
+ * At most 3 of the new cards come from news sites. The rest are original
+ * articles from labs, tools, and research blogs.
+ *
  *   npm run generate
  */
 
@@ -19,6 +24,8 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const storiesPath = join(root, "src/data/stories.json");
 const MIN_NEW = 10;
 const MAX_NEW = 12;
+/** News sites stay the smaller lane. The rest of a run is original articles. */
+const MAX_NEWS = 3;
 const MAX_AGE_MS = 45 * 24 * 60 * 60 * 1000;
 
 /** No RSS. Checked every run so a breakout is not crowded out by changelog posts. */
@@ -44,6 +51,14 @@ const DIRECT = [
     color: "#0B3D5C",
   },
 ];
+
+const AIC_FEED = {
+  url: "https://theaicommit.com/feed.xml",
+  category: "Research",
+  sourceName: "The AI Commit",
+  color: "#4A1942",
+  role: "publisher",
+};
 
 const FEEDS = [
   {
@@ -80,7 +95,10 @@ const FEEDS = [
     category: "Models",
     sourceName: "Hugging Face",
     color: "#0B3D5C",
-    match: /model|llm|train|inferen|dataset|agent|vllm|gpu/i,
+    role: "publisher",
+    match:
+      /model|llm|train|inferen|dataset|agent|vllm|gpu|transformer|llama|token|benchmark|fine-tun|quant|vision|encoder|gradio|mlx|grpo|weight/i,
+    denyTitle: /joins hugging face/i,
   },
   {
     url: "https://deepmind.google/blog/rss.xml",
@@ -266,6 +284,14 @@ const INDEXES = [
     role: "publisher",
     accept: (href) => /perplexity\.ai\/hub\/[^/?#]+/.test(href),
   },
+  {
+    url: "https://vllm.ai/blog",
+    sourceName: "vLLM",
+    category: "Tools",
+    color: "#3D2914",
+    role: "publisher",
+    accept: (href) => /vllm\.ai\/blog\/20\d{2}-/.test(href),
+  },
 ];
 
 const DENY_TITLE =
@@ -285,13 +311,19 @@ const candidates = [];
 
 for (const page of DIRECT) {
   if (known.has(normalize(page.link))) continue;
-  const card = await toCard(page, page);
-  if (!card) {
-    console.error(`Missed breakout: ${page.link}`);
-    continue;
+  candidates.push({ feed: { ...page, role: "publisher" }, item: page });
+}
+
+let aicCard = null;
+try {
+  const xml = await get(AIC_FEED.url);
+  const latest = parseItems(xml).find((item) => item.link && item.title && item.published);
+  if (latest && !known.has(normalize(latest.link))) {
+    aicCard = await toCard(latest, AIC_FEED, { required: true });
+    if (!aicCard) console.error(`Missed The AI Commit: ${latest.link}`);
   }
-  known.add(normalize(card.sourceUrl));
-  added.push(card);
+} catch (error) {
+  console.error(`Feed failed: ${AIC_FEED.url} (${error.message})`);
 }
 
 for (const feed of FEEDS) {
@@ -345,24 +377,88 @@ for (const index of INDEXES) {
   }
 }
 
-const publishers = candidates
-  .filter((entry) => entry.feed.role !== "news")
-  .sort((a, b) => b.item.published - a.item.published);
-const news = candidates
-  .filter((entry) => entry.feed.role === "news")
-  .sort((a, b) => b.item.published - a.item.published);
-const ordered = [];
-while (publishers.length || news.length) {
-  if (publishers.length) ordered.push(publishers.shift());
-  if (news.length) ordered.push(news.shift());
+const SLOTS = [
+  "aic",
+  "models",
+  "tools",
+  "research",
+  "original",
+  "news",
+  "original",
+  "original",
+  "news",
+  "original",
+  "original",
+  "news",
+];
+
+candidates.sort((a, b) => b.item.published - a.item.published);
+const counts = {};
+
+if (aicCard) {
+  added.push(aicCard);
+  counts[aicCard.sourceName] = 1;
+  known.add(normalize(aicCard.sourceUrl));
 }
 
-for (const { feed, item } of ordered) {
-  if (added.length >= MAX_NEW) break;
-  const card = await toCard(item, feed);
+for (const slot of SLOTS) {
+  if (slot === "aic" || added.length >= MAX_NEW) continue;
+  const card = (await pick(slot, true)) || (slot === "news" ? null : await pick(slot, false));
   if (!card) continue;
-  known.add(normalize(card.sourceUrl));
   added.push(card);
+}
+
+async function pick(slot, differentPublisher) {
+  for (let i = 0; i < candidates.length; i += 1) {
+    const entry = candidates[i];
+    const source = entry.feed.sourceName;
+    const isNews = entry.feed.role === "news";
+    if ((counts[source] || 0) >= 2) continue;
+    const previous = added.at(-1)?.sourceName;
+    if (differentPublisher && previous && source === previous) continue;
+    if (slot === "news") {
+      if (!isNews || recap(entry.item.title, added)) continue;
+    } else if (isNews) {
+      continue;
+    } else if (slot === "models" && entry.feed.category !== "Models") {
+      continue;
+    } else if (slot === "tools" && entry.feed.category !== "Tools") {
+      continue;
+    } else if (
+      slot === "research" &&
+      (entry.feed.category !== "Research" || source === "The AI Commit")
+    ) {
+      continue;
+    }
+    candidates.splice(i, 1);
+    i -= 1;
+    const card = await toCard(entry.item, entry.feed);
+    if (!card) continue;
+    counts[source] = (counts[source] || 0) + 1;
+    known.add(normalize(card.sourceUrl));
+    return card;
+  }
+  return null;
+}
+
+function recap(title, cards) {
+  const words = tokens(title);
+  return cards.some((card) => {
+    const seen = tokens(card.headline);
+    let shared = 0;
+    for (const word of words) if (seen.has(word)) shared += 1;
+    return shared >= 2;
+  });
+}
+
+function tokens(value) {
+  const skip = new Set(["with", "from", "that", "this", "your", "into", "about", "after", "their"]);
+  return new Set(
+    value
+      .toLowerCase()
+      .split(/[^a-z0-9]+/)
+      .filter((word) => word.length > 3 && !skip.has(word)),
+  );
 }
 
 if (added.length < MIN_NEW) {
@@ -372,7 +468,7 @@ if (added.length < MIN_NEW) {
 writeFileSync(storiesPath, `${JSON.stringify([...added, ...stories], null, 2)}\n`);
 for (const card of added) console.log(`Added ${card.id} — ${card.headline}`);
 
-async function toCard(item, feed) {
+async function toCard(item, feed, { required = false } = {}) {
   let html = "";
   let finalUrl = item.link;
   try {
@@ -400,7 +496,10 @@ async function toCard(item, feed) {
   const sentence = excerpt
     .split(/(?<=[.!?])\s+/)
     .find((line) => CONCRETE.test(line) && line.length > 40 && line.length < 220);
-  if (!sentence || /log in|try chatgpt|see all in/i.test(excerpt)) return null;
+  const junk = /log in|try chatgpt|see all in/i.test(excerpt);
+  if ((!sentence || junk) && !required) return null;
+  const why = sentence && !junk ? sentence : item.description || words(excerpt, 40);
+  if (!why) return null;
 
   const imageUrl = abs(finalUrl, meta(html, "og:image") || meta(html, "twitter:image"));
   const headline = item.title
@@ -412,8 +511,8 @@ async function toCard(item, feed) {
     id: slug(finalUrl, stories, added),
     category: feed.category,
     headline,
-    summary: words(excerpt, 60),
-    whyItMatters: sentence,
+    summary: required && item.description ? words(item.description, 60) : words(excerpt, 60),
+    whyItMatters: required && item.description ? item.description : why,
     sourceName: feed.sourceName,
     sourceUrl: finalUrl,
     ...(imageUrl ? { imageUrl } : {}),

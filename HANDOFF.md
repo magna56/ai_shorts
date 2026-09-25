@@ -1,8 +1,8 @@
-# AI Commit Shorts — Handoff for next Cursor session
+# EngAI — Handoff for next Cursor session
 
 **Repo:** https://github.com/magna56/ai_shorts  
 **Brand:** [theaicommit.com](https://theaicommit.com) — Daily AI Engineering Lab  
-**Product:** iOS-first Expo app — **TLDR for your pocket**  
+**Product:** iOS-first Expo app — **EngAI**, AI news for software engineers  
 **Owner:** Theaicommit / magna56  
 
 Use this file as the full brief when continuing work in a new Cursor session. Do not re-litigate settled decisions unless the user asks.
@@ -53,7 +53,9 @@ The AI Commit only publishes **one deep lab/day**. Shorts are the **radar** for 
 
 **Why not “builder-only”?** Too narrow for MVP growth. **Why not “everyone keep up with AI”?** Too vague; fights multi-million email brands without a wedge.
 
-**Positioning line:** “TLDR for your pocket.”
+**Positioning line:** EngAI. News for software engineers. The store subtitle is News.
+
+**Second app, later:** inAI is the general-audience version. Same card format, no engineer-only framing. It does not start until EngAI has shipped. Do not fold that audience into EngAI.
 
 **Where effort goes:** Content is the moat — real pieces, ~60 words, a sharp “why it matters,” and a link to the article. UI exists to make that scan fast. Do not spend the next sessions on feed infrastructure, accounts, or scraping. A card that is vague, unsourced, or linked to a homepage is a failed card.
 
@@ -186,7 +188,7 @@ Priority order (pick with user):
 1. **Ship TestFlight** via EAS on laptop (credentials interactive)
 2. **Live feed** — RSS/API/OG fetch for real headlines + images (replace/seed-augment static `STORIES`)
 3. **Push notifications** for breaking model/tool drops
-4. **Polish** — better icons/splash branded to The AI Commit; App Store screenshots
+4. **Polish** — icon and splash for EngAI; App Store screenshots. The lab stays The AI Commit.
 5. **Deep lab linking** — auto-attach AIC lab URLs when a short matches a published lab
 
 ---
@@ -210,7 +212,7 @@ Priority order (pick with user):
 ```text
 Read HANDOFF.md in this repo (https://github.com/magna56/ai_shorts).
 
-We are shipping AI Commit Shorts: an Inshorts-style iOS app (Expo) = “TLDR for your pocket” for engineers/tech pros. Email digests and this app coexist. Do not reopen audience debates unless I ask.
+We are shipping EngAI: an Inshorts-style iOS app (Expo) for software engineers. Email digests and this app coexist. inAI is a later app for a general audience. Do not reopen the EngAI audience unless I ask.
 
 Current code is the MVP (swipe cards, categories, source links, deep lab CTA, hero images + fallbacks, eas.json).
 

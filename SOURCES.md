@@ -1,6 +1,6 @@
 # Sources we plan to monitor
 
-Operating list for AI Commit Shorts. A card links the original page. Sensors only tell us where to look.
+Operating list for EngAI. A card links the original page. Sensors only tell us where to look.
 
 Three passes a day: morning, midday, late afternoon. Each pass keeps items newer than the last card. If nothing clears the bar, that pass adds nothing.
 
@@ -19,10 +19,11 @@ npm run draft -- https://example.com/the-article
 
 The script reads the page. It keeps the original URL, the publisher, a category guess, and the image (`og:image`, then `twitter:image`). If the page has no image, leave `imageUrl` empty and the app uses the category cover.
 
-Then write three fields. Do not paste the vendor headline or the first paragraph.
+Then write four fields. Do not paste the vendor headline or the first paragraph.
 
 - **Headline.** The decision a reader should remember.
 - **Summary.** About 60 words. What shipped. A number only when the page states it.
+- **For a software engineer.** Every card has this. Map the idea onto a system the reader already runs: a sort, a cache, a queue, a lock. For a The AI Commit lab card, use that section from the post.
 - **Why it matters.** What an engineer should do differently.
 
 ## Standing sources
@@ -31,7 +32,7 @@ Check these every pass. “Latest” means this page is new, not that a newslett
 
 ### The AI Commit
 
-- [theaicommit.com](https://theaicommit.com) — one deep lab a day. Check it every pass. When that lab matches a card, attach it as the Deep lab link. The card still links the original article for the news itself.
+- [theaicommit.com](https://theaicommit.com) — one lab a day. Every pass puts the latest lab in the feed as its own card, linked to that article. When the same lab also explains a news card, attach it there as the Deep lab link too.
 
 ### Models
 
@@ -43,6 +44,7 @@ Check these every pass. “Latest” means this page is new, not that a newslett
 - Microsoft Research (Phi and other small models)
 - Mistral
 - Qwen
+- Hugging Face blog — model, training, inference, and benchmark posts. Skip hiring notes.
 
 ### Tools
 
@@ -77,15 +79,27 @@ Google Cloud, AWS, and Azure only when there is something you can call.
 
 ## AI news sites
 
-Original publishers are one lane. These sites publish their own AI articles, and a card can link that article. Skip one when it is only a recap of a story already in the feed.
+Original articles are the main lane. A run is ordered, not mixed at random: today’s lab, a new model, a different publisher, a tool, a research piece, then a news card, then more original articles, with two more news seats at most. At most two cards from the same publisher. An empty slot stays empty. Skip a news card when it only recaps a story already in the stack.
 
 - [DeepLearning.AI, The Batch](https://www.deeplearning.ai/the-batch/)
 - [Microsoft Research](https://www.microsoft.com/en-us/research/blog/)
 - [Perplexity](https://www.perplexity.ai/hub)
 - [Thinking Machines Lab](https://thinkingmachines.ai/news/)
 - Qwen blog
+- [Hugging Face blog](https://huggingface.co/blog)
 - Simon Willison, Interconnects, Latent Space, Import AI, Lilian Weng, Sebastian Raschka, BAIR
 - TechCrunch AI, The Verge AI, VentureBeat AI, MIT Technology Review, Ars Technica AI, Wired AI, The Decoder, MarkTechPost
+
+## Additional seats
+
+These are extra cards after the run above. They do not replace today’s lab, the standing list, the 60-word card, the “why it matters,” the two-per-publisher cap, or an empty slot.
+
+Look only when that pass’s ordered seats are already filled or honestly empty. A card still has to clear the same bar: original page, something concrete, an engineer can call it, switch a model, or change a harness.
+
+- **One serving or chip card,** if the ordered run did not already include one. Price, latency, or a new API on Groq, Fireworks, Together, Modal, or Cloudflare, plus an Nvidia inference post when an engineer can buy, call, or retarget a workload. Not a chip rumor.
+- **One long read,** if the ordered run did not already include a paper, kernel, or benchmark that would change an eval. Same card shape. Mark it as the long read so it is not mistaken for a one-minute launch.
+
+Personnel moves, IPOs, legal fights, and revenue claims stay off the list. They are not an additional seat.
 
 ## Sensors
 
@@ -121,7 +135,11 @@ Sensors stay sensors. A hot thread does not add a subreddit or an X commentator 
 
 ### On probation
 
-- **TypeSafe — Jev.** Original post: [Introducing System One Models and Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev). Docs: [docs.typesafe.ai](https://docs.typesafe.ai). The card is the decision: Jev returns a typed choice, score, or probability, not prose, so it belongs in routing, classification, and checks inside an agent loop. Do not link the seed round, the Vercel adoption piece, or a third-party hosted wrapper. A second card-worthy post moves TypeSafe onto Models.
+- **TypeSafe — Jev.** Original post: [Introducing System One Models and Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev). Docs: [docs.typesafe.ai](https://docs.typesafe.ai). The card is the decision: Jev returns a typed choice, score, or probability, not prose, so it belongs in routing, classification, and checks inside an agent loop. Do not link the seed round, the Vercel adoption piece, or a third-party hosted wrapper. A second card-worthy post moves TypeSafe onto Models. CLM-8B is not that second post. It is a different lab.
+
+- **Contrastive-LM — CLM-8B.** Original: [github.com/Contrastive-LM/CLM](https://github.com/Contrastive-LM/CLM). An open System One model with a TypeSafe-compatible API. An engineer can run it as a verifier or a typed check. Card the repo, not a recap of the benchmark claims. A second card-worthy post moves it onto Models.
+
+- **Inferact.** Original: [700 TPS on Kimi K3: A Case for TPU Megakernels](https://inferact.ai/blog/tpu-megakernels). A kernel an engineer can run, with a number against a named vLLM baseline. Card that post, not a rewrite of the benchmark. A second card-worthy post moves Inferact onto Tools, next to vLLM.
 
 ## Slow day only
 

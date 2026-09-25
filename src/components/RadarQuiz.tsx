@@ -130,7 +130,7 @@ export function RadarQuiz({ cardHeight, chromeHeight, onDone }: Props) {
 const styles = StyleSheet.create({
   page: {
     width: "100%",
-    backgroundColor: colors.paper,
+    backgroundColor: colors.field,
     paddingHorizontal: spacing.lg,
     justifyContent: "center",
   },
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     letterSpacing: 1.2,
     textTransform: "uppercase",
-    color: colors.signal,
+    color: colors.accent,
   },
   title: {
     fontFamily: "SourceSerif4_700Bold",
